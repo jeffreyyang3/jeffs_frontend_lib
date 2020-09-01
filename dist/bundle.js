@@ -81,31 +81,19 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/javascript/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/typescript/index.ts");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/javascript/index.js":
+/***/ "./src/typescript/index.ts":
 /*!*********************************!*\
-  !*** ./src/javascript/index.js ***!
+  !*** ./src/typescript/index.ts ***!
   \*********************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sass_x_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../sass/x.scss */ \"./src/sass/x.scss\");\n/* harmony import */ var _sass_x_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_sass_x_scss__WEBPACK_IMPORTED_MODULE_0__);\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\n\nalert(\"hey hey\");\n\nvar asdf = function asdf() {\n  _classCallCheck(this, asdf);\n\n  console.log(\"hey\");\n};\n\n//# sourceURL=webpack:///./src/javascript/index.js?");
-
-/***/ }),
-
-/***/ "./src/sass/x.scss":
-/*!*************************!*\
-  !*** ./src/sass/x.scss ***!
-  \*************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/sass/x.scss?");
+eval("console.log(\"yo\");\nvar x = 123213;\nalert(x);\n\n\n//# sourceURL=webpack:///./src/typescript/index.ts?");
 
 /***/ })
 
