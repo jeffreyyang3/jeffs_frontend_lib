@@ -9,6 +9,9 @@ module.exports = {
     filename: "bundle.js"
   },
   mode: "development",
+  resolve: {
+    extensions: [".js", ".ts"]
+  },
   plugins: [
     new MiniCssExtractPlugin({
       filename: "bundle.css"
