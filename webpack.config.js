@@ -9,8 +9,11 @@ module.exports = {
     filename: "bundle.js",
   },
   devServer: {
+    host: "0.0.0.0",
+    port: 8080,
     watchOptions: {
       ignored: /node_modules/,
+      poll: 1000,
     },
   },
   mode: "development",

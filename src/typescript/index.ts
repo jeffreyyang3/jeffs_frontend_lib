@@ -6,5 +6,6 @@ const y = new noName({
     z: "a",
   },
 });
+alert("hey");
 
 console.log(y);

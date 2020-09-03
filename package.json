@@ -9,8 +9,10 @@
   "devDependencies": {
     "@babel/core": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
+    "@webpack-cli/serve": "^0.2.0",
     "autoprefixer": "^9.8.6",
     "babel-loader": "^8.1.0",
+    "command-line-args": "^5.1.1",
     "css-loader": "^4.2.2",
     "cssnano": "^4.1.10",
     "file-loader": "^6.1.0",
@@ -21,12 +23,14 @@
     "sass-loader": "^10.0.1",
     "ts-loader": "^8.0.3",
     "typescript": "^4.0.2",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "webpack-serve": "^3.2.0"
   },
   "scripts": {
     "test": "jest",
     "build": "webpack --config webpack.config.js",
-    "dev": "webpack-dev-server"
+    "dev": "webpack-dev-server",
+    "devDocker": "docker-compose up"
   },
   "jest": {
     "testMatch": [
