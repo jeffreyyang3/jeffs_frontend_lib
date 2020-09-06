@@ -9,18 +9,18 @@ test("basic object set", () => {
 });
 
 test("basic computed, no dependency on computed", () => {
-  const x = new noName({
-    data: { x: "y", z: "asdf" },
+  const nn = new noName({
+    data: { n1: 1, n2: 1 },
     computed: {
-      "xz": {
+      "onePlusTwo": {
         fn: function() {
-          return this.state.x + this.state.z;
+          return this.state.n1 + this.state.n2;
         },
-        dependencies: ['x', 'y']
+        dependencies: ['n1', 'n2']
       }
     }
   });
-  expect(x.state.xz).toBe('yasdf');
-  x.state.x = 'asdf';
-  expect(x.state.xz).toBe('asdfasdf');
+  expect(nn.state.onePlusTwo).toBe(2);
+  nn.state.n2 = 2;
+  expect(nn.state.onePlusTwo).toBe(3);
 });

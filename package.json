@@ -32,7 +32,8 @@
     "test": "jest",
     "build": "webpack --config webpack.config.js",
     "dev": "webpack-dev-server",
-    "devDocker": "docker-compose up --build"
+    "devDocker": "docker-compose up --build",
+    "devTest": "jest --watchAll"
   },
   "jest": {
     "verbose": true

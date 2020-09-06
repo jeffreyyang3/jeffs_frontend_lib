@@ -1,3 +1,4 @@
+import noNameComputed from './computed';
 interface constructArgs {
   el?: string;
   data?: {
@@ -12,13 +13,14 @@ interface nnHTMLElement extends HTMLElement {
   __nn__: noName;
 }
 
-export class noName {
+export class noName implements noNameComputed {
   public $el: nnHTMLElement;
   public reactiveNodes: NodeList;
   public error: string;
   public data: constructArgs["data"];
   public state: constructArgs["data"];
   public computed: constructArgs["computed"];
+  initComputed = noNameComputed.initComputed;
   public computeFns: {
     [key: string]: () => any
   };
@@ -54,17 +56,7 @@ export class noName {
     console.log(this.data);
   }
 
-  initComputed(computed: constructArgs["computed"]) {
-    Object.keys(computed).forEach((computedPropName) => {
-      const { fn, dependencies } = computed[computedPropName];
-      this.computeFns[computedPropName] = fn.bind(this);
-      this.state[computedPropName] = this.computeFns[computedPropName]();
-      dependencies.forEach(computedDependency => {
-        if(this.dependencies[computedDependency]) this.dependencies[computedDependency].add(computedPropName);
-        else this.dependencies[computedDependency] = new Set([computedPropName]);
-      });
-    });
-  }
+  
 
   makeReactiveProp(key: string, value: any) {
     this.data[key] = value;
