@@ -9,4 +9,3 @@ const y = new noName({
 
 console.log(y);
 console.log(y.data.z);
-

@@ -7,7 +7,23 @@
   <body>
     <div id="app">
       <template tag="div" n-data="a"></template>
+      <my-component></my-component>
     </div>
   </body>
-  <script src="bundle.js"></script>
+  <!-- <script src="bundle.js"></script> -->
+  <script type="text/javascript">
+    class MyComponent extends HTMLElement {
+      constructor () {
+        super();
+        console.log('construct');
+      }
+      connectedCallback(){
+        this.innerHTML = `<h1>heyy</h1>`;
+      }
+      attributeChangedCallback(name, oldVal, newVal) {
+        console.log(`attribute ${name} changed`);
+      }
+    }
+    window.customElements.define('my-component', MyComponent);
+  </script>
 </html>

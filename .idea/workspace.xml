@@ -2,13 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2dea733e-e772-4250-8020-cd88aaf1d816" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jest.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/jest.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/fw/construct.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/fw/construct.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/hello.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/hello.test.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DockerExecCommand">
+    <ExecCommand>
+      <option name="command" value="/bin/sh" />
+      <option name="imageId" value="sha256:9a9903715400748bd80d5b87058b8f048b1e92974b137180fc3646bd615d85fc" />
+    </ExecCommand>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -29,7 +41,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="ts.external.directory.path" value="C:\Users\Jeffrey\Desktop\noname\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -61,6 +73,9 @@
       <updated>1599134321189</updated>
       <workItem from="1599134324320" duration="129000" />
       <workItem from="1599134473757" duration="2786000" />
+      <workItem from="1599183300002" duration="2636000" />
+      <workItem from="1599291856556" duration="84000" />
+      <workItem from="1599366682576" duration="1452000" />
     </task>
     <servers />
   </component>
@@ -68,6 +83,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="-1128" y="377" key="#Volume_binding" timestamp="1599164365359">
+      <screen x="-1920" y="-22" width="1920" height="1040" />
+    </state>
+    <state x="-1128" y="377" key="#Volume_binding/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1599164365359" />
     <state x="290" y="151" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599134705288">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
@@ -80,10 +99,14 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="567" y="201" key="FileChooserDialogImpl/0.0.1680.1010/-1920.-22.1920.1040@0.0.1680.1010" timestamp="1599134664259" />
-    <state x="-1717" y="-22" width="1217" height="1040" key="SettingsEditor" timestamp="1599135295784">
+    <state x="-1533" y="-22" width="1217" height="1040" key="SettingsEditor" timestamp="1599183810448">
       <screen x="-1920" y="-22" width="1920" height="1040" />
     </state>
-    <state x="-1717" y="-22" width="1217" height="1040" key="SettingsEditor/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1599135295784" />
+    <state x="-1533" y="-22" width="1217" height="1040" key="SettingsEditor/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1599183810448" />
     <state x="211" y="194" key="SettingsEditor/0.0.1680.1010/-1920.-22.1920.1040@0.0.1680.1010" timestamp="1599134584365" />
+    <state x="-1337" y="-22" width="753" height="1040" key="find.popup" timestamp="1599366995742">
+      <screen x="-1920" y="-22" width="1920" height="1040" />
+    </state>
+    <state x="-1337" y="-22" width="753" height="1040" key="find.popup/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1599366995742" />
   </component>
 </project>
