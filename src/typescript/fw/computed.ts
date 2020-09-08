@@ -7,6 +7,7 @@ interface constructArgs {
   computed?: {
     [key: string]: { fn: () => any; dependencies: Array<string> };
   };
+
 }
 
 export default class {

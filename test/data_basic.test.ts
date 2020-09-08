@@ -23,4 +23,6 @@ test("basic computed, no dependency on computed", () => {
   expect(nn.state.onePlusTwo).toBe(2);
   nn.state.n2 = 2;
   expect(nn.state.onePlusTwo).toBe(3);
+
+
 });

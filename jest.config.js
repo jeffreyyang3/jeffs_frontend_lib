@@ -144,11 +144,9 @@ module.exports = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  roots: [
-      "<rootDir>/test"
-  ],
+  roots: ["<rootDir>/test", "<rootDir>/src"],
   transform: {
-    "ts$": "ts-jest"
+    ts$: "ts-jest"
   },
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
@@ -156,7 +154,7 @@ module.exports = {
   // ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
-  testRegex: [ "\.(js|ts)$"],
+  testRegex: ["test.(js|ts)$"]
 
   // This option allows the use of a custom results processor
   // testResultsProcessor: undefined,
