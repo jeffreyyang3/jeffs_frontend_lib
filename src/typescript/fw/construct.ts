@@ -1,41 +1,25 @@
-import noNameComputed from './computed';
-interface constructArgs {
-  el?: string;
-  data?: {
-    [key: string]: any;
-  };
-  computed?: {
-    [key: string]: { fn: () => any; dependencies: Array<string> };
-  };
-}
-
-interface nnHTMLElement extends HTMLElement {
-  __nn__: noName;
-}
-
-export class noName implements noNameComputed {
-  public $el: nnHTMLElement;
-  public reactiveNodes: NodeList;
-  public error: string;
-  public data: constructArgs["data"];
-  public state: constructArgs["data"];
-  public computed: constructArgs["computed"];
-  initComputed = noNameComputed.initComputed;
-  public computeFns: {
+import { constructArgs, nnHTMLElement } from '../typedefs';
+export class nn implements noName {
+  $el: nnHTMLElement;
+  reactiveNodes: NodeList;
+  error: string;
+  data: constructArgs["data"];
+  state: constructArgs["data"];
+  computeFns: {
     [key: string]: () => any
   };
-  public dependencies: {
+  dependencies: {
     [key: string]: Set<string>;
   };
-
   constructor({ el, data, computed }: constructArgs) {
+
     this.data = {};
     this.state = {};
     this.dependencies = {};
     this.computeFns = {};
     if (el) this.attach(el);
     if (data) this.initData(data);
-    if(computed) this.initComputed(computed);
+    if (computed) this.initComputed(computed);
 
   }
 
@@ -56,7 +40,7 @@ export class noName implements noNameComputed {
     console.log(this.data);
   }
 
-  
+
 
   makeReactiveProp(key: string, value: any) {
     this.data[key] = value;
@@ -67,7 +51,7 @@ export class noName implements noNameComputed {
       },
       set: (val) => {
         this.data[key] = val;
-        if(key in this.dependencies) {
+        if (key in this.dependencies) {
           this.dependencies[key].forEach(computedPropertyName => {
             this.state[computedPropertyName] = this.computeFns[computedPropertyName]();
           });
