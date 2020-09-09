@@ -19,7 +19,7 @@ export abstract class nnTypeDef {
   error: string;
   data: constructArgs["data"];
   state: constructArgs["data"];
-  computeFns: {
+  computedFns: {
     [key: string]: () => any
   };
   dependencies: {

@@ -1,5 +1,6 @@
 // import { nn } from './construct';
 import { nnTypeDef } from '../typedefs';
+import { reactiveData } from './data';
 interface constructArgs {
   el?: string;
   data?: {
@@ -11,18 +12,57 @@ interface constructArgs {
 
 }
 
-export default class nnComputed {
-  initComputed({
+export class computedHelper {
+  constructor(
+    {
+      computedArgs,
+      nnState,
+      nnDependencies,
+      computedFns
+    }: {
+      computedArgs: constructArgs['computed'],
+      nnState: nnTypeDef['state'],
+      nnDependencies: nnTypeDef['dependencies'],
+      computedFns: nnTypeDef['computedFns']
+    }
+  ) {
+
+  }
+
+export function initComputed({
     computedArgs,
     nnState,
-    dependencies
+    nnDependencies,
+    computedFns
   }: {
     computedArgs: constructArgs['computed'],
     nnState: nnTypeDef['state'],
-    dependencies: nnTypeDef['dependencies']
+    nnDependencies: nnTypeDef['dependencies'],
+    computedFns: nnTypeDef['computedFns']
   }): void {
+  Object.keys(computedArgs).forEach(computedPropName => {
+    initDependency(computedPropName, computedArgs[computedPropName].dependencies, nnDependencies);
+  });
+}
 
-  }
+function initDependency(name: string, propDependencies: Array<string>,
+  nnDependencies: nnTypeDef['dependencies']) {
+  propDependencies.forEach(propDependency => {
+    if (propDependency in nnDependencies) {
+      nnDependencies[propDependency].add(name);
+    } else {
+      nnDependencies[propDependency] = new Set([name]);
+    }
+  });
+}
+
+function resolveDependencies(nnDependencies: nnTypeDef['dependencies']) {
+
+
+}
+
+
+
   // initComputed(this: noName, computed: constructArgs["computed"]) {
   //   Object.keys(computed).forEach((computedPropName) => {
   //     const { fn, dependencies } = computed[computedPropName];
@@ -36,4 +76,3 @@ export default class nnComputed {
   // }
 
 
-};

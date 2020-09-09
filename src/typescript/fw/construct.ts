@@ -1,32 +1,42 @@
 import { constructArgs, nnHTMLElement } from '../typedefs';
-export class nn implements noName {
+import { initComputed } from './computed';
+import { reactiveData } from './data';
+export class nn {
   $el: nnHTMLElement;
   reactiveNodes: NodeList;
   error: string;
   data: constructArgs["data"];
   state: constructArgs["data"];
-  computeFns: {
+  computedFns: {
     [key: string]: () => any
   };
   dependencies: {
     [key: string]: Set<string>;
   };
   constructor({ el, data, computed }: constructArgs) {
-
     this.data = {};
     this.state = {};
     this.dependencies = {};
-    this.computeFns = {};
+    this.computedFns = {};
     if (el) this.attach(el);
     if (data) this.initData(data);
-    if (computed) this.initComputed(computed);
-
+    if (computed) initComputed({
+      computedArgs: computed,
+      nnState: this,
+      nnDependencies: this.dependencies,
+      computedFns: this.computedFns
+    });
+    /*
+computedArgs,
+  nnState,
+  dependencies,
+  computedFns
+  */
   }
 
   attach(el: string) {
     this.$el = document.querySelector(el);
     this.$el.__nn__ = this;
-
     if (!this.$el) {
       this.error = "element not found";
       return;
@@ -35,28 +45,26 @@ export class nn implements noName {
 
   initData(data: constructArgs["data"]) {
     Object.keys(data).forEach((key) => {
-      this.makeReactiveProp(key, data[key]);
+      this.makeReactiveData(key, data[key]);
     });
-    console.log(this.data);
   }
 
-
-
-  makeReactiveProp(key: string, value: any) {
-    this.data[key] = value;
-    Object.defineProperty(this.state, key, {
-      get: () => {
-        console.log("get called");
-        return this.data[key];
-      },
-      set: (val) => {
-        this.data[key] = val;
+  makeReactiveData(key: string, value: any) {
+    const rData = new reactiveData({
+      initialData: value,
+      dataChangedCallback: () => {
         if (key in this.dependencies) {
-          this.dependencies[key].forEach(computedPropertyName => {
-            this.state[computedPropertyName] = this.computeFns[computedPropertyName]();
+          Array.from(this.dependencies[key]).forEach(computedDependent => {
+            this.state[computedDependent] = this.computedFns[computedDependent]();
           });
         }
-      },
+      }
     });
+    Object.defineProperty(this.state, key, {
+      enumerable: true,
+      get: () => rData.getData(),
+      set: val => rData.setData(val)
+    })
   }
+
 }
