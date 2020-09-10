@@ -1,14 +1,15 @@
-import { constructArgs, nnHTMLElement } from '../typedefs';
-import { initComputed } from './computed';
-import { reactiveData } from './data';
+import { constructArgs, nnHTMLElement } from "../typedefs";
+import computedHelper from "./computed";
+import { reactiveData } from "./data";
 export class nn {
   $el: nnHTMLElement;
   reactiveNodes: NodeList;
   error: string;
   data: constructArgs["data"];
   state: constructArgs["data"];
+  private computedHelper;
   computedFns: {
-    [key: string]: () => any
+    [key: string]: () => any;
   };
   dependencies: {
     [key: string]: Set<string>;
@@ -20,18 +21,14 @@ export class nn {
     this.computedFns = {};
     if (el) this.attach(el);
     if (data) this.initData(data);
-    if (computed) initComputed({
-      computedArgs: computed,
-      nnState: this,
-      nnDependencies: this.dependencies,
-      computedFns: this.computedFns
-    });
-    /*
-computedArgs,
-  nnState,
-  dependencies,
-  computedFns
-  */
+    if (computed) {
+      this.computedHelper = new computedHelper({
+        computedArgs: computed,
+        nnState: this,
+        nnDependencies: this.dependencies,
+        computedFns: this.computedFns
+      });
+    }
   }
 
   attach(el: string) {
@@ -44,7 +41,7 @@ computedArgs,
   }
 
   initData(data: constructArgs["data"]) {
-    Object.keys(data).forEach((key) => {
+    Object.keys(data).forEach(key => {
       this.makeReactiveData(key, data[key]);
     });
   }
@@ -55,7 +52,9 @@ computedArgs,
       dataChangedCallback: () => {
         if (key in this.dependencies) {
           Array.from(this.dependencies[key]).forEach(computedDependent => {
-            this.state[computedDependent] = this.computedFns[computedDependent]();
+            this.state[computedDependent] = this.computedFns[
+              computedDependent
+            ]();
           });
         }
       }
@@ -64,7 +63,6 @@ computedArgs,
       enumerable: true,
       get: () => rData.getData(),
       set: val => rData.setData(val)
-    })
+    });
   }
-
 }
