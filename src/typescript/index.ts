@@ -1,10 +1,10 @@
-import { noName } from "./fw/construct";
-const y = new noName({
+import { nn } from "./fw/construct";
+const y = new nn({
   el: "#app",
   data: {
     x: "y",
-    z: "a",
-  },
+    z: "a"
+  }
 });
 
 console.log(y);
