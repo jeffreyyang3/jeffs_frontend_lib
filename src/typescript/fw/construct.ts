@@ -46,18 +46,20 @@ export class nn {
     });
   }
 
+  getDataChangedCallback(key: string) {
+    return () => {
+      if (key in this.dependencies) {
+        Array.from(this.dependencies[key]).forEach(computedDependent => {
+          this.state[computedDependent] = this.computedFns[computedDependent]();
+        });
+      }
+    };
+  }
+
   makeReactiveData(key: string, value: any) {
     const rData = new reactiveData({
       initialData: value,
-      dataChangedCallback: () => {
-        if (key in this.dependencies) {
-          Array.from(this.dependencies[key]).forEach(computedDependent => {
-            this.state[computedDependent] = this.computedFns[
-              computedDependent
-            ]();
-          });
-        }
-      }
+      dataChangedCallback: this.getDataChangedCallback(key)
     });
     Object.defineProperty(this.state, key, {
       enumerable: true,

@@ -39,10 +39,28 @@ export default class computedHelper {
         computedPropName,
         this.computedArgs[computedPropName].dependencies
       );
+      this.computedFns[computedPropName] = this.computedArgs[
+        computedPropName
+      ].fn.bind(this.nnState);
     });
-    Object.keys(this.computedArgs).forEach(computedPropName => {
-      this.resolveDependency(computedPropName);
-    });
+    //Object.keys(this.computedArgs).forEach(computedPropName => {
+    //this.resolveDependency(computedPropName);
+    //});
+
+    const toResolve = new Set(Object.keys(this.computedArgs));
+    let tries = 0;
+    const maxTries = toResolve.size;
+    while (tries < maxTries) {
+      const arr = Array.from(toResolve);
+      for (let computedPropName of arr) {
+        if (this.resolveDependency(computedPropName)) {
+          toResolve.delete(computedPropName);
+        }
+      }
+      if (!toResolve.size) return;
+      tries++;
+    }
+    throw "unable to resolve computed dependencies";
   }
   initDependency(name: string, propDependencies: Array<string>) {
     this.computedFns[name] = this.computedArgs[name].fn.bind(this.nnState);
@@ -55,9 +73,18 @@ export default class computedHelper {
     });
   }
 
-  resolveDependency(name: string) {
-    this.computedFns[name] = this.computedArgs[name].fn.bind(this.nnState);
-    this.nnState.makeReactiveData(name, this.computedFns[name]());
+  allDependenciesResolved(name: string) {
+    const currDependencies = this.computedArgs[name].dependencies;
+    return Array.from(currDependencies).every(
+      dependency => this.nnDependencies[dependency] !== undefined
+    );
+  }
+
+  resolveDependency(name: string): boolean {
+    if (this.allDependenciesResolved(name)) {
+      this.nnState.makeReactiveData(name, this.computedFns[name]());
+      return true;
+    } else return false;
   }
 }
 
@@ -96,16 +123,3 @@ export function initComputed({
 }
 
 function resolveDependencies(nnDependencies: nnTypeDef["dependencies"]) {}
-
-// initComputed(this: noName, computed: constructArgs["computed"]) {
-//   Object.keys(computed).forEach((computedPropName) => {
-//     const { fn, dependencies } = computed[computedPropName];
-//     this.computeFns[computedPropName] = fn.bind(this);
-//     this.state[computedPropName] = this.computeFns[computedPropName]();
-//     dependencies.forEach(computedDependency => {
-//       if (this.dependencies[computedDependency]) this.dependencies[computedDependency].add(computedPropName);
-//       else this.dependencies[computedDependency] = new Set([computedPropName]);
-//     });
-//   });
-
-// }

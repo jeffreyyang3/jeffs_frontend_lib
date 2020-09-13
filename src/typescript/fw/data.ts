@@ -1,6 +1,6 @@
 export class reactiveData {
-  data: any;
-  dataChangedCallback: (value: any) => void;
+  private data;
+  private dataChangedCallback;
   constructor({
     initialData,
     dataChangedCallback
