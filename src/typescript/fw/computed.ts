@@ -76,7 +76,7 @@ export default class computedHelper {
   allDependenciesResolved(name: string) {
     const currDependencies = this.computedArgs[name].dependencies;
     return Array.from(currDependencies).every(
-      dependency => this.nnDependencies[dependency] !== undefined
+      dependency => this.nnState.state[dependency] !== undefined
     );
   }
 
