@@ -2,7 +2,7 @@ pipeline {
   agent { docker { image 'node:alpine' } }
   stages {
     stage('build') {
-      environment { HOME="." }
+      environment { HOME="${WORKSPACE}" }
       steps {
         sh 'npm install'
       }
