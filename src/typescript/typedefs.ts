@@ -1,4 +1,6 @@
 import { nn } from './fw/construct';
+import { JSDOM } from 'jsdom';
+
 export interface constructArgs {
   el?: string;
   data?: {
@@ -7,6 +9,8 @@ export interface constructArgs {
   computed?: {
     [key: string]: { fn: () => any; dependencies: Array<string> };
   };
+  jsDocument?: JSDOM["window"]["document"]
+
 }
 
 export interface nnHTMLElement extends HTMLElement {

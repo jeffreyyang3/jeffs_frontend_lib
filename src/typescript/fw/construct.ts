@@ -7,6 +7,7 @@ export class nn {
   error: string;
   data: constructArgs["data"];
   state: constructArgs["data"];
+  document: constructArgs["jsDocument"]  | Document;
   private computedHelper;
   computedFns: {
     [key: string]: () => any;
@@ -14,11 +15,12 @@ export class nn {
   dependencies: {
     [key: string]: Set<string>;
   };
-  constructor({ el, data, computed }: constructArgs) {
+  constructor({ el, data, computed, jsDocument }: constructArgs) {
     this.data = {};
     this.state = {};
     this.dependencies = {};
     this.computedFns = {};
+    this.document = jsDocument ? jsDocument : document;
     if (el) this.attach(el);
     if (data) this.initData(data);
     if (computed) {
@@ -32,7 +34,7 @@ export class nn {
   }
 
   attach(el: string) {
-    this.$el = document.querySelector(el);
+    this.$el = this.document.querySelector(el);
     this.$el.__nn__ = this;
     if (!this.$el) {
       this.error = "element not found";

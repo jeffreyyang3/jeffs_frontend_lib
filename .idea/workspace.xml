@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="2dea733e-e772-4250-8020-cd88aaf1d816" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jest.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/jest.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jenkinsfile" beforeDir="false" afterPath="$PROJECT_DIR$/Jenkinsfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/fw/construct.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/fw/construct.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/hello.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/hello.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/typedefs.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/typedefs.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/dom_basic.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/test/dom_basic.test.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +39,11 @@
     </ExecCommand>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1h03jyOa4TxHyKhO7Rv0xXAnBjO" />
@@ -40,12 +61,36 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="ts.external.directory.path" value="C:\Users\Jeffrey\Desktop\noname\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Jest.jsdom loads">
+    <configuration name="All Tests" type="JavaScriptTestRunnerJest" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <jest-options value="--watchAll" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="jsdom loads" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/test/dom_basic.test.ts" />
+      <test-names>
+        <test-name value="jsdom loads" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
@@ -62,6 +107,16 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Docker.dev docker" />
+      <item itemvalue="Jest.All Tests" />
+      <item itemvalue="Jest.jsdom loads" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Jest.jsdom loads" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -76,21 +131,37 @@
       <workItem from="1599183300002" duration="2636000" />
       <workItem from="1599291856556" duration="84000" />
       <workItem from="1599366682576" duration="1452000" />
+      <workItem from="1599699461445" duration="624000" />
+      <workItem from="1600062284440" duration="1492000" />
+      <workItem from="1600063796570" duration="1805000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="-1128" y="377" key="#Volume_binding" timestamp="1599164365359">
       <screen x="-1920" y="-22" width="1920" height="1040" />
     </state>
     <state x="-1128" y="377" key="#Volume_binding/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1599164365359" />
-    <state x="290" y="151" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599134705288">
-      <screen x="0" y="0" width="1680" height="1010" />
+    <state x="484" y="21" width="1169" height="829" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599699530862">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="290" y="151" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1010/-1920.-22.1920.1040@0.0.1680.1010" timestamp="1599134705288" />
+    <state x="484" y="21" width="1169" height="829" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1599699530862" />
     <state x="672" y="343" key="DockerComposeFileDialog" timestamp="1599134665299">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
@@ -99,14 +170,39 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="567" y="201" key="FileChooserDialogImpl/0.0.1680.1010/-1920.-22.1920.1040@0.0.1680.1010" timestamp="1599134664259" />
-    <state x="-1533" y="-22" width="1217" height="1040" key="SettingsEditor" timestamp="1599183810448">
-      <screen x="-1920" y="-22" width="1920" height="1040" />
+    <state width="1876" height="372" key="GridCell.Tab.0.bottom" timestamp="1600062508430">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="372" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600062508430" />
+    <state width="377" height="346" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599700084211" />
+    <state width="1876" height="372" key="GridCell.Tab.0.center" timestamp="1600062508430">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="372" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600062508430" />
+    <state width="377" height="346" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599700084211" />
+    <state width="1876" height="372" key="GridCell.Tab.0.left" timestamp="1600062508430">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="372" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600062508430" />
+    <state width="377" height="346" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599700084211" />
+    <state width="1876" height="372" key="GridCell.Tab.0.right" timestamp="1600062508430">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="372" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600062508430" />
+    <state width="377" height="346" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599700084211" />
+    <state x="387" y="0" width="1217" height="1040" key="SettingsEditor" timestamp="1600062374065">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1533" y="-22" width="1217" height="1040" key="SettingsEditor/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1599183810448" />
     <state x="211" y="194" key="SettingsEditor/0.0.1680.1010/-1920.-22.1920.1040@0.0.1680.1010" timestamp="1599134584365" />
-    <state x="-1337" y="-22" width="753" height="1040" key="find.popup" timestamp="1599366995742">
-      <screen x="-1920" y="-22" width="1920" height="1040" />
+    <state x="387" y="0" key="SettingsEditor/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600062374065" />
+    <state x="583" y="0" width="753" height="1040" key="find.popup" timestamp="1600064815526">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1337" y="-22" width="753" height="1040" key="find.popup/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1599366995742" />
+    <state x="583" y="0" width="753" height="1040" key="find.popup/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600064815526" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/noname$All_Tests.info" NAME="All Tests Coverage Results" MODIFIED="1599699573800" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

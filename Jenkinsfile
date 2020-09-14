@@ -7,6 +7,11 @@ pipeline {
         sh 'npm install'
       }
     }
+    stage('test webpack nn build') {
+        steps {
+            sh 'npm run build'
+        }
+    }
     stage('test') {
       steps {
         sh 'npm run test'
