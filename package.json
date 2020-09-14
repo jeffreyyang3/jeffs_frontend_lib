@@ -10,6 +10,7 @@
     "@babel/core": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "@types/jest": "^26.0.13",
+    "@types/jsdom": "^16.2.4",
     "@webpack-cli/serve": "^0.2.0",
     "autoprefixer": "^9.8.6",
     "babel-loader": "^8.1.0",
