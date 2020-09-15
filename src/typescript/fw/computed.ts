@@ -5,20 +5,21 @@ export default class computedHelper {
   private computedArgs;
   private computedFns;
   private nnDependencies;
-  private nnState;
+  private nnInstance;
+
   constructor({
     computedArgs,
-    nnState,
     nnDependencies,
     computedFns,
+    nnInstance,
   }: {
     computedArgs: constructArgs["computed"];
-    nnState: nn["state"];
     nnDependencies: nn["dependencies"];
     computedFns: nn["computedFns"];
+    nnInstance: nn;
   }) {
     this.computedArgs = computedArgs;
-    this.nnState = nnState;
+    this.nnInstance = nnInstance;
     this.computedFns = computedFns;
     this.nnDependencies = nnDependencies;
     this.initComputed();
@@ -31,7 +32,7 @@ export default class computedHelper {
       );
       this.computedFns[computedPropName] = this.computedArgs[
         computedPropName
-      ].fn.bind(this.nnState);
+      ].fn.bind(this.nnInstance);
     });
 
     const toResolve = new Set(Object.keys(this.computedArgs));
@@ -50,7 +51,7 @@ export default class computedHelper {
     throw "unable to resolve computed dependencies";
   }
   initDependency(name: string, propDependencies: Array<string>) {
-    this.computedFns[name] = this.computedArgs[name].fn.bind(this.nnState);
+    this.computedFns[name] = this.computedArgs[name].fn.bind(this.nnInstance);
     propDependencies.forEach((propDependency) => {
       if (propDependency in this.nnDependencies) {
         this.nnDependencies[propDependency].add(name);
@@ -63,14 +64,28 @@ export default class computedHelper {
   allDependenciesResolved(name: string) {
     const currDependencies = this.computedArgs[name].dependencies;
     return Array.from(currDependencies).every(
-      (dependency) => this.nnState.state[dependency] !== undefined
+      (dependency) => this.nnInstance.state[dependency] !== undefined
     );
   }
 
   resolveDependency(name: string): boolean {
     if (this.allDependenciesResolved(name)) {
-      this.nnState.makeReactiveData(name, this.computedFns[name]());
+      this.nnInstance.makeReactiveData(name, this.computedFns[name]());
       return true;
     } else return false;
+  }
+
+  getUpdateComputedCallback(key: string) {
+    return () => {
+      if (key in this.nnInstance.dependencies) {
+        Array.from(this.nnInstance.dependencies[key]).forEach(
+          (computedDependent) => {
+            this.nnInstance.state[computedDependent] = this.computedFns[
+              computedDependent
+            ]();
+          }
+        );
+      }
+    };
   }
 }

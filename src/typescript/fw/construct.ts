@@ -32,7 +32,7 @@ export class nn {
     this.modelBindings = {};
     if (el) {
       this.domHelper = new domHelper({
-        nnState: this,
+        nnInstance: this,
         el,
       });
       this.domHelper.attach();
@@ -42,7 +42,7 @@ export class nn {
     if (computed) {
       this.computedHelper = new computedHelper({
         computedArgs: computed,
-        nnState: this,
+        nnInstance: this,
         nnDependencies: this.dependencies,
         computedFns: this.computedFns,
       });
@@ -60,11 +60,8 @@ export class nn {
 
   getDataChangedCallback(key: string) {
     return () => {
-      if (key in this.dependencies) {
-        Array.from(this.dependencies[key]).forEach((computedDependent) => {
-          this.state[computedDependent] = this.computedFns[computedDependent]();
-        });
-      }
+      if (this.computedHelper)
+        this.computedHelper.getUpdateComputedCallback(key)();
       if (this.domHelper) this.domHelper.getDomUpdateCallback(key)();
     };
   }
