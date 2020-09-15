@@ -3,9 +3,11 @@ import { nn } from "./fw/construct";
 const y = new nn({
   el: "#app",
   data: {
-    x: "y",
-    z: "a"
+    asdf: 'asdf'
   }
 });
 
 console.log(y);
+setTimeout(() => {
+  y.state.asdf = 'asdfasdfads';
+}, 2000);

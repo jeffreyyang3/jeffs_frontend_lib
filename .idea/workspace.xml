@@ -23,8 +23,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/fw/construct.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/fw/construct.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/dom_basic.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/test/dom_basic.test.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +133,8 @@
       <workItem from="1599699461445" duration="624000" />
       <workItem from="1600062284440" duration="1492000" />
       <workItem from="1600063796570" duration="2256000" />
-      <workItem from="1600130434890" duration="2318000" />
+      <workItem from="1600130434890" duration="4057000" />
+      <workItem from="1600129053468" duration="2497000" />
     </task>
     <task id="LOCAL-00001" summary="basic attach test">
       <created>1600065809886</created>
@@ -213,14 +213,16 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="553" y="249" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600065823960" />
-    <state x="583" y="0" width="753" height="1040" key="find.popup" timestamp="1600131422366">
+    <state x="583" y="0" width="753" height="1040" key="find.popup" timestamp="1600129350412">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="583" y="0" width="753" height="1040" key="find.popup/-1920.209.1920.1000/3840.243.1050.1640/0.0.1920.1040@0.0.1920.1040" timestamp="1600129350412" />
     <state x="-1337" y="-22" width="753" height="1040" key="find.popup/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1599366995742" />
-    <state x="583" y="0" width="753" height="1040" key="find.popup/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600131422366" />
-    <state x="627" y="230" width="672" height="678" key="search.everywhere.popup" timestamp="1600132894818">
+    <state x="583" y="0" width="753" height="1040" key="find.popup/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600133091293" />
+    <state x="628" y="231" width="672" height="678" key="search.everywhere.popup" timestamp="1600129178014">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="628" y="231" width="672" height="678" key="search.everywhere.popup/-1920.209.1920.1000/3840.243.1050.1640/0.0.1920.1040@0.0.1920.1040" timestamp="1600129178014" />
     <state x="627" y="230" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600132894818" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">

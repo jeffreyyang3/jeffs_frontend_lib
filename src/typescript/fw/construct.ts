@@ -3,7 +3,9 @@ import computedHelper from "./computed";
 import { reactiveData } from "./data";
 export class nn {
   $el: nnHTMLElement;
-  reactiveNodes: NodeList;
+  dependentNodes: {
+    [key: string]: Array<Element>
+  }
   error: string;
   data: constructArgs["data"];
   state: constructArgs["data"];
@@ -20,6 +22,7 @@ export class nn {
     this.state = {};
     this.dependencies = {};
     this.computedFns = {};
+    this.dependentNodes = {};
     if (el) this.attach(el);
     if (data) this.initData(data);
     if (computed) {
@@ -34,11 +37,16 @@ export class nn {
 
   attach(el: string) {
     this.$el = document.querySelector(el);
-    this.$el.__nn__ = this;
     if (!this.$el) {
-      this.error = "element not found";
-      return;
+      throw "cannot attach to nonexistent element";
     }
+    this.$el.__nn__ = this;
+    const nodes = this.$el.querySelectorAll('*[nn-txt]');
+    nodes.forEach(node => {
+      const reactingTo = node.getAttribute('nn-txt');
+      if(!this.dependentNodes[reactingTo]) this.dependentNodes[reactingTo] = [node];
+      else this.dependentNodes[reactingTo].push(node);
+    });
   }
 
   initData(data: constructArgs["data"]) {
@@ -54,6 +62,9 @@ export class nn {
           this.state[computedDependent] = this.computedFns[computedDependent]();
         });
       }
+      if (key in this.dependentNodes) {
+        this.dependentNodes[key].forEach(node => node.innerHTML = this.state[key]);
+      }
     };
   }
 
@@ -67,5 +78,6 @@ export class nn {
       get: () => rData.getData(),
       set: val => rData.setData(val)
     });
+    rData.setData(value);
   }
 }

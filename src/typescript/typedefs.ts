@@ -10,7 +10,6 @@ export interface constructArgs {
     [key: string]: { fn: () => any; dependencies: Array<string> };
   };
   jsDocument?: JSDOM["window"]["document"]
-
 }
 
 export interface nnHTMLElement extends HTMLElement {
@@ -29,7 +28,6 @@ export abstract class nnTypeDef {
   dependencies: {
     [key: string]: Set<string>;
   };
-
 }
 
 /*
