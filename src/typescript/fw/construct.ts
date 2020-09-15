@@ -15,12 +15,11 @@ export class nn {
   dependencies: {
     [key: string]: Set<string>;
   };
-  constructor({ el, data, computed, jsDocument }: constructArgs) {
+  constructor({ el, data, computed }: constructArgs) {
     this.data = {};
     this.state = {};
     this.dependencies = {};
     this.computedFns = {};
-    this.document = jsDocument ? jsDocument : document;
     if (el) this.attach(el);
     if (data) this.initData(data);
     if (computed) {
@@ -34,7 +33,7 @@ export class nn {
   }
 
   attach(el: string) {
-    this.$el = this.document.querySelector(el);
+    this.$el = document.querySelector(el);
     this.$el.__nn__ = this;
     if (!this.$el) {
       this.error = "element not found";

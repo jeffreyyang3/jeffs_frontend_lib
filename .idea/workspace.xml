@@ -21,11 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="2dea733e-e772-4250-8020-cd88aaf1d816" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jenkinsfile" beforeDir="false" afterPath="$PROJECT_DIR$/Jenkinsfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/fw/construct.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/fw/construct.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/typedefs.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/typedefs.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/dom_basic.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/test/dom_basic.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +44,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SET_USER_NAME_GLOBALLY" value="false" />
   </component>
   <component name="ProjectId" id="1h03jyOa4TxHyKhO7Rv0xXAnBjO" />
   <component name="ProjectViewState">
@@ -63,11 +63,11 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
     <property name="ts.external.directory.path" value="C:\Users\Jeffrey\Desktop\noname\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected="Jest.jsdom loads">
+  <component name="RunManager" selected="Docker.dev docker">
     <configuration name="All Tests" type="JavaScriptTestRunnerJest" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -133,8 +133,17 @@
       <workItem from="1599366682576" duration="1452000" />
       <workItem from="1599699461445" duration="624000" />
       <workItem from="1600062284440" duration="1492000" />
-      <workItem from="1600063796570" duration="1805000" />
+      <workItem from="1600063796570" duration="2256000" />
+      <workItem from="1600130434890" duration="2318000" />
     </task>
+    <task id="LOCAL-00001" summary="basic attach test">
+      <created>1600065809886</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1600065809886</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -151,6 +160,10 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="basic attach test" />
+    <option name="LAST_COMMIT_MESSAGE" value="basic attach test" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-1128" y="377" key="#Volume_binding" timestamp="1599164365359">
@@ -190,17 +203,25 @@
     </state>
     <state width="1876" height="372" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600062508430" />
     <state width="377" height="346" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599700084211" />
-    <state x="387" y="0" width="1217" height="1040" key="SettingsEditor" timestamp="1600062374065">
+    <state x="387" y="0" width="1217" height="1040" key="SettingsEditor" timestamp="1600066038435">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1533" y="-22" width="1217" height="1040" key="SettingsEditor/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1599183810448" />
     <state x="211" y="194" key="SettingsEditor/0.0.1680.1010/-1920.-22.1920.1040@0.0.1680.1010" timestamp="1599134584365" />
-    <state x="387" y="0" key="SettingsEditor/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600062374065" />
-    <state x="583" y="0" width="753" height="1040" key="find.popup" timestamp="1600064815526">
+    <state x="387" y="0" key="SettingsEditor/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600066038435" />
+    <state x="553" y="249" key="Vcs.Push.Dialog.v2" timestamp="1600065823960">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="553" y="249" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600065823960" />
+    <state x="583" y="0" width="753" height="1040" key="find.popup" timestamp="1600131422366">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1337" y="-22" width="753" height="1040" key="find.popup/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1599366995742" />
-    <state x="583" y="0" width="753" height="1040" key="find.popup/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600064815526" />
+    <state x="583" y="0" width="753" height="1040" key="find.popup/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600131422366" />
+    <state x="627" y="230" width="672" height="678" key="search.everywhere.popup" timestamp="1600132894818">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="627" y="230" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600132894818" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/noname$All_Tests.info" NAME="All Tests Coverage Results" MODIFIED="1599699573800" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

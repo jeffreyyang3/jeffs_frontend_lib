@@ -9,4 +9,3 @@ const y = new nn({
 });
 
 console.log(y);
-console.log(y.data.z);

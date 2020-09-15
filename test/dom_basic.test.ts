@@ -1,12 +1,9 @@
 import { JSDOM } from 'jsdom';
 import { nn } from '../src/typescript/fw/construct';
 import { nnHTMLElement } from '../src/typescript/typedefs';
-let dom;
-let document : JSDOM["window"]["document"];
 beforeEach(() => {
-    dom = new JSDOM(`<!DOCTYPE html>
-        <body><p id="main">jsdom</p> <div id="app"></div></body>`);
-    document = dom.window.document;
+    document.body.innerHTML = `<!DOCTYPE html>
+        <body><p id="main">jsdom</p> <div id="app"></div></body>`;
 });
 
 test('jsdom loads', () => {

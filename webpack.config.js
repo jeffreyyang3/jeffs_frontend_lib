@@ -12,8 +12,11 @@ module.exports = {
     host: "0.0.0.0",
     port: 8080,
     watchOptions: {
-      ignored: /node_modules/,
       poll: 1000,
+      ignored: [
+        path.resolve(__dirname, 'node_modules'),
+        path.resolve(__dirname, 'test'),
+      ]
     },
   },
   mode: "development",
