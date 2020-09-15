@@ -1,21 +1,27 @@
 import { constructArgs, nnHTMLElement } from "../typedefs";
 import computedHelper from "./computed";
+import domHelper from "./dom";
 import { reactiveData } from "./data";
 export class nn {
   $el: nnHTMLElement;
   dependentNodes: {
-    [key: string]: Array<Element>
-  }
+    [key: string]: Array<Element>;
+  };
   error: string;
   data: constructArgs["data"];
   state: constructArgs["data"];
-  document: constructArgs["jsDocument"]  | Document;
-  private computedHelper;
+  document: constructArgs["jsDocument"] | Document;
+  public computedHelper;
+  public domHelper;
+
   computedFns: {
     [key: string]: () => any;
   };
   dependencies: {
     [key: string]: Set<string>;
+  };
+  modelBindings: {
+    [key: string]: Array<HTMLInputElement>;
   };
   constructor({ el, data, computed }: constructArgs) {
     this.data = {};
@@ -23,34 +29,31 @@ export class nn {
     this.dependencies = {};
     this.computedFns = {};
     this.dependentNodes = {};
-    if (el) this.attach(el);
+    this.modelBindings = {};
+    if (el) {
+      this.domHelper = new domHelper({
+        nnState: this,
+        el,
+      });
+      this.domHelper.attach();
+      this.domHelper.initReactiveNodes();
+    }
     if (data) this.initData(data);
     if (computed) {
       this.computedHelper = new computedHelper({
         computedArgs: computed,
         nnState: this,
         nnDependencies: this.dependencies,
-        computedFns: this.computedFns
+        computedFns: this.computedFns,
       });
     }
-  }
-
-  attach(el: string) {
-    this.$el = document.querySelector(el);
-    if (!this.$el) {
-      throw "cannot attach to nonexistent element";
+    if (el) {
+      this.domHelper.initModelNodes();
     }
-    this.$el.__nn__ = this;
-    const nodes = this.$el.querySelectorAll('*[nn-txt]');
-    nodes.forEach(node => {
-      const reactingTo = node.getAttribute('nn-txt');
-      if(!this.dependentNodes[reactingTo]) this.dependentNodes[reactingTo] = [node];
-      else this.dependentNodes[reactingTo].push(node);
-    });
   }
 
   initData(data: constructArgs["data"]) {
-    Object.keys(data).forEach(key => {
+    Object.keys(data).forEach((key) => {
       this.makeReactiveData(key, data[key]);
     });
   }
@@ -58,25 +61,23 @@ export class nn {
   getDataChangedCallback(key: string) {
     return () => {
       if (key in this.dependencies) {
-        Array.from(this.dependencies[key]).forEach(computedDependent => {
+        Array.from(this.dependencies[key]).forEach((computedDependent) => {
           this.state[computedDependent] = this.computedFns[computedDependent]();
         });
       }
-      if (key in this.dependentNodes) {
-        this.dependentNodes[key].forEach(node => node.innerHTML = this.state[key]);
-      }
+      if (this.domHelper) this.domHelper.getDomUpdateCallback(key)();
     };
   }
 
   makeReactiveData(key: string, value: any) {
     const rData = new reactiveData({
       initialData: value,
-      dataChangedCallback: this.getDataChangedCallback(key)
+      dataChangedCallback: this.getDataChangedCallback(key),
     });
     Object.defineProperty(this.state, key, {
       enumerable: true,
       get: () => rData.getData(),
-      set: val => rData.setData(val)
+      set: (val) => rData.setData(val),
     });
     rData.setData(value);
   }
