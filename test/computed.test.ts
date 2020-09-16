@@ -9,15 +9,15 @@ test("basic computed, depend only on data", () => {
         fn: function() {
           return this.state.n1 + this.state.n2;
         },
-        dependencies: ["n1", "n2"]
+        dependencies: ["n1", "n2"],
       },
       n1n2plusn1: {
         fn: function() {
           return this.state.n1n2 + this.state.n1;
         },
-        dependencies: ["n1", "n1n2"]
-      }
-    }
+        dependencies: ["n1", "n1n2"],
+      },
+    },
   });
   expect(x.state.n1n2).toBe(2);
   x.state.n1 = 4;
@@ -35,20 +35,37 @@ test("computed depending on other computed", () => {
         fn: function() {
           return this.state.n1 + this.state.n2;
         },
-        dependencies: ["n1", "n2"]
+        dependencies: ["n1", "n2"],
       },
       n1n2plusn1: {
         fn: function() {
           return this.state.n1n2 + this.state.n1;
         },
-        dependencies: ["n1", "n1n2"]
-      }
-    }
+        dependencies: ["n1", "n1n2"],
+      },
+    },
   });
   expect(x.state.n1n2plusn1).toBe(3);
   x.state.n2 = 100;
   // n1 = 1, n2 = 100, n1n2 101 expect 101 + 1 102;
   expect(x.state.n1n2plusn1).toBe(102);
+});
+
+test("computed depending on array", () => {
+  const x = new nn({
+    data: { ab: ["a", "b"], c: "d" },
+    computed: {
+      abc: {
+        fn: function() {
+          return this.state.ab.join("") + this.state.c;
+        },
+        dependencies: ["ab", "c"],
+      },
+    },
+  });
+  expect(x.state.abc).toBe("abd");
+  x.state.ab.push("c");
+  expect(x.state.abc).toBe("abcd");
 });
 test("invalid computed should throw error on init", () => {
   expect(
@@ -60,15 +77,15 @@ test("invalid computed should throw error on init", () => {
             fn: function() {
               return this.state.n1 + this.state.n2 + this.state.n1n2plusn1;
             },
-            dependencies: ["n1", "n2", "n1n2plusn1"]
+            dependencies: ["n1", "n2", "n1n2plusn1"],
           },
           n1n2plusn1: {
             fn: function() {
               return this.state.n1n2 + this.state.n1;
             },
-            dependencies: ["n1", "n1n2"]
-          }
-        }
+            dependencies: ["n1", "n1n2"],
+          },
+        },
       })
   ).toThrow("unable to resolve computed dependencies");
 });
