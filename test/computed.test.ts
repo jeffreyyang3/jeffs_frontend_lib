@@ -1,5 +1,3 @@
-import { reactiveData } from "../src/typescript/fw/data";
-import { constructArgs } from "../src/typescript/typedefs";
 import { nn } from "../src/typescript/fw/construct";
 test("basic computed, depend only on data", () => {
   const x = new nn({

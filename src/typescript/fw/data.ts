@@ -40,6 +40,10 @@ export class reactiveData {
     });
   }
   wrapObjectProps() {
+    Object.defineProperty(this.data, "__nn__wrapped", {
+      enumerable: false,
+      value: true,
+    });
     Object.keys(this.data).forEach((key) => {
       let valClosure = this.data[key];
       Object.defineProperty(this.data, key, {

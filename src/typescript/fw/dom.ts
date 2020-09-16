@@ -6,7 +6,7 @@ export default class domHelper {
     this.nnInstance = nnInstance;
     this.el = el;
   }
-  initModelNodes() {}
+
   attach() {
     const nnInstance = this.nnInstance;
     nnInstance.$el = document.querySelector(this.el);
@@ -39,6 +39,21 @@ export default class domHelper {
       if (!nnInstance.dependentNodes[reactingTo])
         nnInstance.dependentNodes[reactingTo] = [node];
       else nnInstance.dependentNodes[reactingTo].push(node);
+    });
+  }
+  initModelNodes() {
+    const modelNodes = this.nnInstance.$el.querySelectorAll(
+      "*[nn-model]"
+    ) as NodeListOf<HTMLInputElement>;
+    modelNodes.forEach((node) => {
+      const bound2 = node.getAttribute("nn-model");
+      if (!this.nnInstance.modelBindings[bound2])
+        this.nnInstance.modelBindings[bound2] = [node];
+      else this.nnInstance.modelBindings[bound2].push(node);
+      node.value = this.nnInstance.state[bound2];
+      node.oninput = () => {
+        this.nnInstance.state[bound2] = node.value;
+      };
     });
   }
 }

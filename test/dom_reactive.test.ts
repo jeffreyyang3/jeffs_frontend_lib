@@ -7,6 +7,8 @@ beforeEach(() => {
         <h1 id="asdf" nn-txt="asdf"></h1>
         <span id="n1n2" nn-txt="n1n2"></span>
         <span id="n1" nn-txt="n1"></span>
+        <span id="inputVal" nn-txt="inputVal"></span>
+        <input type="text" nn-model="inputVal" id="inputValInput">
         </div>
     </body>`;
 });
@@ -55,4 +57,22 @@ test("reactive node with computed property", () => {
   x.state.n1 = 10;
   expect(Number(document.getElementById("n1").innerHTML)).toBe(10);
   expect(Number(document.getElementById("n1n2").innerHTML)).toBe(12);
+});
+
+test("input/dom basic data binding, js set", () => {
+  const x = new nn({
+    el: "#app",
+    data: {
+      inputVal: "cool",
+    },
+  });
+  const inputNode = document.getElementById(
+    "inputValInput"
+  ) as HTMLInputElement;
+  const displayInputNode = document.getElementById("inputVal");
+  expect(inputNode.value).toBe("cool");
+  expect(displayInputNode.innerHTML).toBe("cool");
+  x.state.inputVal = "nice";
+  expect(inputNode.value).toBe("nice");
+  expect(displayInputNode.innerHTML).toBe("nice");
 });
