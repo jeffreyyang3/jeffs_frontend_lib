@@ -51,22 +51,6 @@ test("computed depending on other computed", () => {
   expect(x.state.n1n2plusn1).toBe(102);
 });
 
-test("computed depending on array", () => {
-  const x = new nn({
-    data: { ab: ["a", "b"], c: "d" },
-    computed: {
-      abc: {
-        fn: function() {
-          return this.state.ab.join("") + this.state.c;
-        },
-        dependencies: ["ab", "c"],
-      },
-    },
-  });
-  expect(x.state.abc).toBe("abd");
-  x.state.ab.push("c");
-  expect(x.state.abc).toBe("abcd");
-});
 test("invalid computed should throw error on init", () => {
   expect(
     () =>
