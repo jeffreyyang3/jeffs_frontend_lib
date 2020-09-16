@@ -17,6 +17,10 @@ export class reactiveData {
   wrapArrayMethods() {
     const arrayProto = Array.prototype;
     const dcCallbackClosure = this.dataChangedCallback;
+    Object.defineProperty(this.data, "__nn__wrapped", {
+      enumerable: false,
+      value: true,
+    });
     ["sort", "pop", "push", "shift", "unshift"].forEach((pMethodName) => {
       //@ts-ignore
       const originalMethod = arrayProto[pMethodName];
@@ -38,7 +42,13 @@ export class reactiveData {
   setData(value: any): void {
     const prev = this.data;
     this.data = value;
-    if (Array.isArray(value) && value !== prev) this.wrapArrayMethods();
+    if (Array.isArray(value) && value !== prev) {
+      //@ts-ignore
+      if (value.__nn__wrapped) {
+        this.data = [...this.data];
+      }
+      this.wrapArrayMethods();
+    }
     if (this.dataChangedCallback) this.dataChangedCallback();
   }
 }
