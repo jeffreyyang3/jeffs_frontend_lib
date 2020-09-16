@@ -66,6 +66,16 @@ export class nn {
     };
   }
 
+  setState(propChain: Array<string | number>, value: any) {
+    let curr: any = this.state;
+    const stateKey = propChain[0];
+    for (let i = 0; i < propChain.length - 1; i++) {
+      curr = curr[propChain[i]];
+    }
+    curr[propChain[propChain.length - 1]] = value;
+    this.state[stateKey] = this.state[stateKey];
+  }
+
   makeReactiveData(key: string, value: any) {
     const rData = new reactiveData({
       initialData: value,

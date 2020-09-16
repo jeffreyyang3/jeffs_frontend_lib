@@ -1,3 +1,6 @@
+export function isObject(obj: any) {
+  return obj != null && obj.constructor.name === "Object";
+}
 export class reactiveData {
   private data;
   private dataChangedCallback;
@@ -36,6 +39,18 @@ export class reactiveData {
       });
     });
   }
+  wrapObjectProps() {
+    Object.keys(this.data).forEach((key) => {
+      let valClosure = this.data[key];
+      Object.defineProperty(this.data, key, {
+        get: () => valClosure,
+        set: (val) => {
+          valClosure = val;
+          this.dataChangedCallback();
+        },
+      });
+    });
+  }
   getData(): any {
     return this.data;
   }
@@ -48,7 +63,7 @@ export class reactiveData {
         this.data = [...this.data];
       }
       this.wrapArrayMethods();
-    }
+    } else if (isObject(value)) this.wrapObjectProps();
     if (this.dataChangedCallback) this.dataChangedCallback();
   }
 }

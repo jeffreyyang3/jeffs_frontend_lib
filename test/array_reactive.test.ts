@@ -40,7 +40,7 @@ test("computed setting array after", () => {
     data: { ab: "not an array", c: "d" },
     computed: {
       abc: {
-        fn: function() {
+        fn() {
           if (Array.isArray(this.state.ab))
             return this.state.ab.join("") + this.state.c;
           else return this.state.ab + this.state.c;
@@ -61,5 +61,24 @@ test("set array from different nn", () => {
   const y = new nn({
     data: { exArray: [3, 4] },
   });
+  // next line should not throw an error
   x.state.exArray = y.state.exArray;
+  expect(x.state).toHaveProperty("exArray", [3, 4]);
+});
+
+test("set array index", () => {
+  const x = new nn({
+    data: { exArray: [1, 2] },
+    computed: {
+      arrayIndex0: {
+        fn: function() {
+          return this.state.exArray[0];
+        },
+        dependencies: ["exArray"],
+      },
+    },
+  });
+  expect(x.state.arrayIndex0).toBe(1);
+  x.setState(["exArray", 0], 2);
+  expect(x.state.arrayIndex0).toBe(2);
 });
