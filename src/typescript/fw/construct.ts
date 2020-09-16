@@ -1,6 +1,7 @@
 import { constructArgs, nnHTMLElement } from "../typedefs";
 import computedHelper from "./computed";
 import domHelper from "./dom";
+import watchHelper from "./watch";
 import { reactiveData } from "./data";
 export class nn {
   $el: nnHTMLElement;
@@ -13,6 +14,7 @@ export class nn {
   document: constructArgs["jsDocument"] | Document;
   public computedHelper;
   public domHelper;
+  public watchHelper;
 
   computedFns: {
     [key: string]: () => any;
@@ -23,7 +25,7 @@ export class nn {
   modelBindings: {
     [key: string]: Array<HTMLInputElement>;
   };
-  constructor({ el, data, computed }: constructArgs) {
+  constructor({ el, data, computed, watch }: constructArgs) {
     this.data = {};
     this.state = {};
     this.dependencies = {};
@@ -47,6 +49,9 @@ export class nn {
         computedFns: this.computedFns,
       });
     }
+    if (watch) {
+      this.watchHelper = new watchHelper({  watchArgs: watch, nnInstance: this });
+    }
     if (el) {
       this.domHelper.initModelNodes();
     }
@@ -63,6 +68,7 @@ export class nn {
       if (this.computedHelper)
         this.computedHelper.getUpdateComputedCallback(key)();
       if (this.domHelper) this.domHelper.getDomUpdateCallback(key)();
+      if (this.watchHelper) this.watchHelper.getRunWatchCallback(key)();
     };
   }
 

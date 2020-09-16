@@ -9,7 +9,11 @@ export interface constructArgs {
   computed?: {
     [key: string]: { fn: () => any; dependencies: Array<string> };
   };
+  watch?: {
+    [key: string]: () => any
+  }
   jsDocument?: JSDOM["window"]["document"];
+
 }
 
 export interface nnHTMLElement extends HTMLElement {

@@ -1,4 +1,3 @@
-import { JSDOM } from 'jsdom';
 import { nn } from '../src/typescript/fw/construct';
 import { nnHTMLElement } from '../src/typescript/typedefs';
 beforeEach(() => {
