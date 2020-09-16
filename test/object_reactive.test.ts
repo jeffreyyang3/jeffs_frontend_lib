@@ -1,4 +1,4 @@
-import { nn } from "../src/typescript/fw/construct";
+import nn from "../src/typescript/fw/construct";
 test("top level object set reacts", () => {
   const x = new nn({
     data: {

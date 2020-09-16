@@ -1,4 +1,4 @@
-import { nn } from "./fw/construct";
+import nn from "./fw/construct";
 
 const y = new nn({
   el: "#app",

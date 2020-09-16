@@ -1,9 +1,9 @@
 import { constructArgs, nnHTMLElement } from "../typedefs";
 import computedHelper from "./computed";
-import domHelper from "./dom";
+import domHelper from "./dom/dom";
 import watchHelper from "./watch";
 import { reactiveData } from "./data";
-export class nn {
+export default class nn {
   $el: nnHTMLElement;
   dependentNodes: {
     [key: string]: Array<Element>;

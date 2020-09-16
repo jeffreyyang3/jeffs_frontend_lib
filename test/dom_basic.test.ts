@@ -1,4 +1,4 @@
-import { nn } from '../src/typescript/fw/construct';
+import nn from '../src/typescript/fw/construct';
 import { nnHTMLElement } from '../src/typescript/typedefs';
 beforeEach(() => {
     document.body.innerHTML = `<!DOCTYPE html>

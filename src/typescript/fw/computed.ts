@@ -1,11 +1,11 @@
 import { constructArgs } from "../typedefs";
-import { nn } from "./construct";
+import nn from "./construct";
 
 export default class computedHelper {
-  private computedArgs;
-  private computedFns;
-  private nnDependencies;
-  private nnInstance;
+  private readonly computedArgs;
+  private readonly computedFns;
+  private readonly nnDependencies;
+  private readonly nnInstance;
 
   constructor({
     computedArgs,

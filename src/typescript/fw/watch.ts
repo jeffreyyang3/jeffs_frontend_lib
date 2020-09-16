@@ -1,4 +1,4 @@
-import { nn } from './construct';
+import nn from './construct';
 import { constructArgs } from "../typedefs";
 
 export default class watchHelper { // might be kinda extra
@@ -9,7 +9,8 @@ export default class watchHelper { // might be kinda extra
         this.watchArgs = watchArgs;
     }
     getRunWatchCallback (key : string) {
-        if (key in this.watchArgs) return this.watchArgs[key].bind(this.nnInstance);
-        else return () => {};
+        return () => {
+            if (key in this.watchArgs) this.watchArgs[key].bind(this.nnInstance)();
+        }
     }
 }

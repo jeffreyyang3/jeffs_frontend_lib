@@ -1,4 +1,4 @@
-import { nn } from "./fw/construct";
+import nn from "./fw/construct";
 import { JSDOM } from "jsdom";
 
 export interface constructArgs {

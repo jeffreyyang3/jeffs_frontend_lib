@@ -1,7 +1,7 @@
-import { nn } from "./construct";
+import nn from "../construct";
 export default class domHelper {
-  private nnInstance;
-  private el;
+  private readonly nnInstance;
+  private readonly el;
   constructor({ nnInstance, el }: { nnInstance: nn; el: string }) {
     this.nnInstance = nnInstance;
     this.el = el;

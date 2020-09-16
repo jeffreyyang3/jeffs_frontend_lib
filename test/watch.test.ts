@@ -1,4 +1,4 @@
-import { nn } from '../src/typescript/fw/construct';
+import nn from '../src/typescript/fw/construct';
 test("basic watch data properties", () => {
     let old = '';
     const x = new nn({
