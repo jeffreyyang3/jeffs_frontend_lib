@@ -4,13 +4,13 @@ const y = new nn({
   el: "#app",
   data: {
     asdf: "this gonna change in 2 secs",
-    inputVal: "initial: changing in 3 seconds",
+    inputVal: "changing in 3 seconds",
+    arr: [1, 2, 3, 4],
   },
 });
 
-console.log(y);
 setTimeout(() => {
-  y.state.asdf = "asdfasdfads";
+  y.state.asdf = "changed";
 }, 2000);
 
 setTimeout(() => {

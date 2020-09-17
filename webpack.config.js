@@ -6,28 +6,28 @@ module.exports = {
   entry: "./src/typescript/index.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js"
+    filename: "bundle.js",
   },
   devServer: {
     host: "0.0.0.0",
-    port: 8080,
+    port: 3000,
     allowedHosts: ["blackjack98.xyz"],
     watchOptions: {
       poll: 1000,
       ignored: [
         path.resolve(__dirname, "node_modules"),
-        path.resolve(__dirname, "test")
-      ]
-    }
+        path.resolve(__dirname, "test"),
+      ],
+    },
   },
   mode: "development",
   resolve: {
-    extensions: [".js", ".ts"]
+    extensions: [".js", ".ts"],
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "bundle.css"
-    })
+      filename: "bundle.css",
+    }),
   ],
   module: {
     rules: [
@@ -37,14 +37,14 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env"]
-          }
-        }
+            presets: ["@babel/preset-env"],
+          },
+        },
       },
       {
         test: /\.ts$/,
         use: "ts-loader",
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(sa|sc|c)ss$/,
@@ -54,10 +54,10 @@ module.exports = {
           { loader: "postcss-loader" },
           {
             loader: "sass-loader",
-            options: { implementation: require("sass") }
-          }
-        ]
-      }
-    ]
-  }
+            options: { implementation: require("sass") },
+          },
+        ],
+      },
+    ],
+  },
 };

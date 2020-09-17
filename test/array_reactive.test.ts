@@ -82,3 +82,20 @@ test("set array index", () => {
   x.setState(["exArray", 0], 2);
   expect(x.state.arrayIndex0).toBe(2);
 });
+
+test("assign spread array has correct wrapped logic", () => {
+  const x = new nn({
+    data: { ab: ["a", "b"], c: "d" },
+    computed: {
+      abc: {
+        fn: function() {
+          return this.state.ab.join("") + this.state.c;
+        },
+        dependencies: ["ab", "c"],
+      },
+    },
+  });
+  expect(x.state.abc).toBe("abd");
+  x.state.ab = [...x.state.ab, "new"];
+  expect(x.state.abc).toBe("abnewd");
+});

@@ -3,6 +3,7 @@ import computedHelper from "./computed";
 import domHelper from "./dom/dom";
 import watchHelper from "./watch";
 import { reactiveData } from "./data";
+import templateHelper from "./dom/template_for";
 export default class nn {
   $el: nnHTMLElement;
   dependentNodes: {
@@ -15,6 +16,7 @@ export default class nn {
   public computedHelper;
   public domHelper;
   public watchHelper;
+  public templateHelper;
 
   computedFns: {
     [key: string]: () => any;
@@ -50,10 +52,17 @@ export default class nn {
       });
     }
     if (watch) {
-      this.watchHelper = new watchHelper({  watchArgs: watch, nnInstance: this });
+      this.watchHelper = new watchHelper({
+        watchArgs: watch,
+        nnInstance: this,
+      });
     }
     if (el) {
       this.domHelper.initModelNodes();
+      this.templateHelper = new templateHelper({
+        nnInstance: this,
+      });
+      this.templateHelper.resolveNNFors();
     }
   }
 

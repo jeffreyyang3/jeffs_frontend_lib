@@ -17,7 +17,7 @@ beforeEach(() => {
     </body>`;
 });
 
-test("initial render: resolveFor returns correct # of new elements", () => {
+test("initial render: resolveFor returns correct related/unrelated html", () => {
   const forNode = document.querySelector(".asdf");
   const exState = { arr: [1, 2, 3, 4] };
   const resultNodes = resolveFor(
@@ -38,12 +38,6 @@ test("initial render: resolveFor returns correct # of new elements", () => {
 test("initial render: correctly replaces elements in dom", () => {
   const forNode = document.querySelector(".asdf");
   const exState = { arr: [1, 2, 3, 4] };
-  const resultNodes = resolveFor(
-    exState,
-    forNode.getAttribute("nn-for"),
-    forNode
-  );
-
-  replaceNodeWithNodeList(forNode, resultNodes);
+  resolveFor(exState, forNode.getAttribute("nn-for"), forNode);
   expect(document.querySelectorAll(".asdf").length).toBe(exState.arr.length);
 });

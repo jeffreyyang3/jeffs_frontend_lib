@@ -9,7 +9,7 @@ export class reactiveData {
     dataChangedCallback,
   }: {
     initialData: any;
-    dataChangedCallback?: () => void;
+    dataChangedCallback: () => void;
   }) {
     this.dataChangedCallback = dataChangedCallback;
     this.data = initialData;
@@ -18,7 +18,6 @@ export class reactiveData {
     }
   }
   wrapArrayMethods() {
-    const arrayProto = Array.prototype;
     const dcCallbackClosure = this.dataChangedCallback;
     Object.defineProperty(this.data, "__nn__wrapped", {
       enumerable: false,
@@ -26,7 +25,7 @@ export class reactiveData {
     });
     ["sort", "pop", "push", "shift", "unshift"].forEach((pMethodName) => {
       //@ts-ignore
-      const originalMethod = arrayProto[pMethodName];
+      const originalMethod = Array.prototype[pMethodName];
       Object.defineProperty(this.data, pMethodName, {
         enumerable: false,
         configurable: false,

@@ -39,3 +39,26 @@ test("object deeper manual set reacts", () => {
   x.setState(["obj", "x", "x"], "new");
   expect(x.state.xProp).toBe("new");
 });
+
+test("setting new obj, scratch, spread", () => {
+  const x = new nn({
+    data: {
+      obj: { x: "one" },
+      obj2: { x: "two" },
+    },
+    computed: {
+      oneTwo: {
+        fn() {
+          return this.state.obj.x + this.state.obj2.x;
+        },
+        dependencies: ["obj", "obj2"],
+      },
+    },
+  });
+
+  expect(x.state.oneTwo).toBe("onetwo");
+  x.state.obj2 = { x: "three" };
+  expect(x.state.oneTwo).toBe("onethree");
+  x.state.obj = { ...x.state.obj, x: "two" };
+  expect(x.state.oneTwo).toBe("twothree");
+});
