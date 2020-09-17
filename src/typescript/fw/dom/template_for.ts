@@ -20,7 +20,7 @@ export function resolveFor(
   },
   expr: string,
   node: Element,
-  scopeVars: { [key: string]: any } = {},
+  scopeVars: { [key: string]: any } = {}
 ) {
   const lookup = {
     ...state,
@@ -31,7 +31,6 @@ export function resolveFor(
     node.innerHTML = getStateData(lookup, expr);
   } else {
     const [_, iterName, inArrayName] = inRegex.exec(expr);
-    console.log({iterName, inArrayName});
     const referencedArray = lookup[inArrayName] as Array<any>;
     const currLevelNodes = referencedArray.map((el) => {
       return {
@@ -39,9 +38,7 @@ export function resolveFor(
         scope: { ...scopeVars, [iterName]: el },
       };
     });
-    currLevelNodes.forEach((currLevelNode) => {
-    });
-    return currLevelNodes.map(nodeData => nodeData.node);
+    return currLevelNodes.map((nodeData) => nodeData.node) as Array<Element>;
   }
 }
 
@@ -50,4 +47,14 @@ export default class templateHelper {
   constructor({ nnInstance }: { nnInstance: nn }) {
     this.nnInstance = nnInstance;
   }
+}
+
+export function replaceNodeWithNodeList(
+  nodeToReplace: Element,
+  nodeList: Node[]
+) {
+  nodeList.forEach((newNode) => {
+    nodeToReplace.parentNode.insertBefore(newNode, nodeToReplace.nextSibling);
+  });
+  nodeToReplace.remove();
 }
