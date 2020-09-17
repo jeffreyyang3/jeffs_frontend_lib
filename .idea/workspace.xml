@@ -20,22 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2dea733e-e772-4250-8020-cd88aaf1d816" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/typescript/fw/dom/template_for.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/dom_declarative_parse.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/fw/computed.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/fw/computed.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/fw/construct.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/fw/construct.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/fw/dom.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/fw/dom/dom.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/fw/watch.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/fw/watch.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/typedefs.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/typedefs.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/array_reactive.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/test/array_reactive.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/computed.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/test/computed.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/data_base.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/test/data_base.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/dom_basic.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/test/dom_basic.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/dom_reactive.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/test/dom_reactive.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/object_reactive.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/test/object_reactive.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/watch.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/test/watch.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/fw/dom/template_for.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/fw/dom/template_for.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/dom_declarative_parse.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/test/dom_declarative_parse.test.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +158,7 @@
       <workItem from="1600130434890" duration="4057000" />
       <workItem from="1600129053468" duration="2497000" />
       <workItem from="1600269347942" duration="262000" />
-      <workItem from="1600269631487" duration="7227000" />
+      <workItem from="1600269631487" duration="15085000" />
     </task>
     <task id="LOCAL-00001" summary="basic attach test">
       <created>1600065809886</created>
@@ -203,6 +190,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="basic attach test" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="-1242" y="122" key="#TypeScript" timestamp="1600291908526">
+      <screen x="-1920" y="-22" width="1920" height="1040" />
+    </state>
+    <state x="-1242" y="122" key="#TypeScript/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1600291908526" />
     <state x="-1128" y="377" key="#Volume_binding" timestamp="1599164365359">
       <screen x="-1920" y="-22" width="1920" height="1040" />
     </state>
@@ -221,28 +212,28 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="567" y="201" key="FileChooserDialogImpl/0.0.1680.1010/-1920.-22.1920.1040@0.0.1680.1010" timestamp="1599134664259" />
-    <state width="571" height="892" key="GridCell.Tab.0.bottom" timestamp="1600276631150">
+    <state width="571" height="892" key="GridCell.Tab.0.bottom" timestamp="1600301519594">
       <screen x="-1920" y="-22" width="1920" height="1040" />
     </state>
-    <state width="571" height="892" key="GridCell.Tab.0.bottom/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1600276631150" />
+    <state width="571" height="892" key="GridCell.Tab.0.bottom/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1600301519594" />
     <state width="1876" height="372" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600062508430" />
     <state width="377" height="346" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599700084211" />
-    <state width="571" height="892" key="GridCell.Tab.0.center" timestamp="1600276631150">
+    <state width="571" height="892" key="GridCell.Tab.0.center" timestamp="1600301519594">
       <screen x="-1920" y="-22" width="1920" height="1040" />
     </state>
-    <state width="571" height="892" key="GridCell.Tab.0.center/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1600276631150" />
+    <state width="571" height="892" key="GridCell.Tab.0.center/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1600301519594" />
     <state width="1876" height="372" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600062508430" />
     <state width="377" height="346" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599700084211" />
-    <state width="571" height="892" key="GridCell.Tab.0.left" timestamp="1600276631150">
+    <state width="571" height="892" key="GridCell.Tab.0.left" timestamp="1600301519593">
       <screen x="-1920" y="-22" width="1920" height="1040" />
     </state>
-    <state width="571" height="892" key="GridCell.Tab.0.left/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1600276631150" />
+    <state width="571" height="892" key="GridCell.Tab.0.left/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1600301519593" />
     <state width="1876" height="372" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600062508430" />
     <state width="377" height="346" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599700084211" />
-    <state width="571" height="892" key="GridCell.Tab.0.right" timestamp="1600276631150">
+    <state width="571" height="892" key="GridCell.Tab.0.right" timestamp="1600301519594">
       <screen x="-1920" y="-22" width="1920" height="1040" />
     </state>
-    <state width="571" height="892" key="GridCell.Tab.0.right/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1600276631150" />
+    <state width="571" height="892" key="GridCell.Tab.0.right/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1600301519594" />
     <state width="1876" height="372" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600062508430" />
     <state width="377" height="346" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599700084211" />
     <state x="-1533" y="-22" width="1217" height="1040" key="SettingsEditor" timestamp="1600271380365">
@@ -261,11 +252,11 @@
     <state x="583" y="0" width="753" height="1040" key="find.popup/-1920.209.1920.1000/3840.243.1050.1640/0.0.1920.1040@0.0.1920.1040" timestamp="1600129350412" />
     <state x="-1337" y="-22" width="753" height="1040" key="find.popup/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1600274418715" />
     <state x="583" y="0" width="753" height="1040" key="find.popup/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600133091293" />
-    <state x="-1292" y="209" width="672" height="678" key="search.everywhere.popup" timestamp="1600269717579">
+    <state x="-1292" y="209" width="672" height="678" key="search.everywhere.popup" timestamp="1600297410205">
       <screen x="-1920" y="-22" width="1920" height="1040" />
     </state>
     <state x="628" y="231" width="672" height="678" key="search.everywhere.popup/-1920.209.1920.1000/3840.243.1050.1640/0.0.1920.1040@0.0.1920.1040" timestamp="1600129178014" />
-    <state x="-1292" y="209" width="672" height="678" key="search.everywhere.popup/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1600269717579" />
+    <state x="-1292" y="209" width="672" height="678" key="search.everywhere.popup/0.0.1680.1010/-1920.-22.1920.1040@-1920.-22.1920.1040" timestamp="1600297410205" />
     <state x="627" y="230" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-1920.209.1920.1040/3840.243.1050.1640@0.0.1920.1040" timestamp="1600132894818" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
