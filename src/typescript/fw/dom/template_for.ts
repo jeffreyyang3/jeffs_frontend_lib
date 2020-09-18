@@ -1,4 +1,3 @@
-import { resolve } from "../../../../webpack.config";
 import nn from "../construct";
 
 export const inRegex = /^(.*) in (.*)/;
@@ -30,6 +29,7 @@ export function resolveFor(
 
   if (!inRegex.test(expr)) {
     node.innerHTML = getStateData(lookup, expr);
+
     return [node];
   } else {
     const [_, iterName, inArrayName] = inRegex.exec(expr);
@@ -42,7 +42,7 @@ export function resolveFor(
     });
     currLevelNodes.forEach((nodeInfo) => {
       const htmlNode = nodeInfo.node as HTMLElement;
-      htmlNode.querySelectorAll("*[nn-for]").forEach((forNode) => {
+      getNNForsOneLvl(htmlNode).forEach((forNode) => {
         resolveFor(
           state,
           forNode.getAttribute("nn-for"),

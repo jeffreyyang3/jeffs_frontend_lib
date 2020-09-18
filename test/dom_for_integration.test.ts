@@ -12,6 +12,16 @@ beforeEach(() => {
               <span nn-for="i.x"></span>
           </div>
         </div>
+        <div id="app3">
+          <div nn-for="arrArr in arrArrArr">
+              <span nn-for="arr in arrArr">
+                <span nn-for="num in arr">
+                  <span nn-for="num" class="final"></span>
+                </span>
+              </span>
+          </div>
+        </div>
+        
     </body>`;
 });
 
@@ -58,5 +68,21 @@ test("evaluates for in correct order when nested iter access", () => {
   const els = document.querySelectorAll(".forNode2 > span");
   els.forEach((el, idx) => {
     expect(el.innerHTML).toBe(`${idx + 1}`);
+  });
+});
+
+test("multiple nested for", () => {
+  const x = new nn({
+    el: "#app3",
+    data: {
+      // @ts-ignore
+      arrArrArr: [1, 2, 3].fill([1, 2, 3].fill([1, 2, 3])),
+    },
+  });
+  const finalNodes = x.$el.querySelectorAll(".final");
+  const compare = [1, 2, 3];
+  expect(finalNodes.length).toBe(Math.pow(compare.length, 3));
+  finalNodes.forEach((el, idx) => {
+    expect(Number(el.innerHTML)).toBe(compare[idx % 3]);
   });
 });
