@@ -59,6 +59,18 @@ export function resolveFor(
   }
 }
 
+export function getNNForsOneLvl(parentNode: Element) {
+  const allNNFors = parentNode.querySelectorAll("*[nn-for]");
+  const invalidParents: Array<Element> = [];
+  // qs should be depth first preorder
+  return Array.from(allNNFors).filter((el) => {
+    const returnVal = !invalidParents.some((parent) => {
+      return parent.contains(el);
+    });
+    invalidParents.push(el);
+    return returnVal;
+  });
+}
 export default class templateHelper {
   private readonly nnInstance;
   constructor({ nnInstance }: { nnInstance: nn }) {
@@ -67,8 +79,9 @@ export default class templateHelper {
   resolveNNFors() {
     const nnBaseNode = this.nnInstance.$el;
     const forNodes = nnBaseNode.querySelectorAll("*[nn-for]");
-    forNodes.forEach((node) => {
-      resolveFor(this.nnInstance.state, node.getAttribute("nn-for"), node);
+    forNodes.forEach((node, idx) => {
+      if (idx !== 1)
+        resolveFor(this.nnInstance.state, node.getAttribute("nn-for"), node);
     });
   }
 }
@@ -84,8 +97,6 @@ export function replaceNodeWithNodeList(
       prev ? prev.nextSibling : nodeToReplace.nextSibling
     );
     prev = newNode as HTMLElement;
-    // @ts-ignore
-    console.log(nodeToReplace.parentNode.innerHTML);
   });
   nodeToReplace.remove();
 }

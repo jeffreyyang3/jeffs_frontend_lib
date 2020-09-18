@@ -1,4 +1,5 @@
 import nn from "./fw/construct";
+import { getNNForsOneLvl } from "./fw/dom/template_for";
 
 const y = new nn({
   el: "#app",
@@ -6,6 +7,11 @@ const y = new nn({
     asdf: "this gonna change in 2 secs",
     inputVal: "changing in 3 seconds",
     arr: [1, 2, 3, 4],
+    arrObjs: [1, 2, 3, 4].map((num) => {
+      return {
+        a: num,
+      };
+    }),
   },
 });
 
