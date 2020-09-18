@@ -76,12 +76,10 @@ export default class templateHelper {
   constructor({ nnInstance }: { nnInstance: nn }) {
     this.nnInstance = nnInstance;
   }
-  resolveNNFors() {
-    const nnBaseNode = this.nnInstance.$el;
-    const forNodes = nnBaseNode.querySelectorAll("*[nn-for]");
-    forNodes.forEach((node, idx) => {
-      if (idx !== 1)
-        resolveFor(this.nnInstance.state, node.getAttribute("nn-for"), node);
+  resolveNNFors(currNode: Element = this.nnInstance.$el) {
+    const forNodes = getNNForsOneLvl(currNode);
+    forNodes.forEach((node) => {
+      resolveFor(this.nnInstance.state, node.getAttribute("nn-for"), node);
     });
   }
 }
