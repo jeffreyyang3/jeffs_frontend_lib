@@ -1,2 +1,2 @@
 # noname
-This is my own frontend framework written with typescript/webpack. It's not done. Use some other established framework.
+This is my own frontend library written from scratch with Typescript. Aims to provide declarative DOM/data reactivity with features similar to those in Vue.js. WIP
