@@ -27,14 +27,21 @@ export function resolveFor(
     ...scopeVars,
   };
   let initialRenderDone = false;
-  let currLevelNodes;
-  const nodeArrayValMap = new Map();
+  interface currLevelNodeInfoObj {
+    node: Element;
+    scope: { [key: string]: any };
+  }
+  let currLevelNodes: Array<currLevelNodeInfoObj>;
+  const nodeArrayValMap = new Map<any, currLevelNodeInfoObj>();
+  node.removeAttribute("nn-for");
+  const templateRoot = document.createElement("template");
+  let childCallbacks = new Map<any, Function>();
 
   const render = () => {
     if (!inRegex.test(expr)) {
       node.innerHTML = getStateData(lookup, expr);
       initialRenderDone = true;
-      return [node];
+      // return [node];
     } else {
       const [_, iterName, inArrayName] = inRegex.exec(expr);
       const referencedArray = lookup[inArrayName] as Array<any>;
@@ -45,9 +52,8 @@ export function resolveFor(
           return nodeArrayValMap.get(el);
         }
         const currLevelNodeInfo = {
-          node: node.cloneNode(true),
+          node: node.cloneNode(true) as Element,
           scope: { ...scopeVars, [iterName]: el },
-          el,
         };
         nodeArrayValMap.set(el, currLevelNodeInfo);
         used.add(el);
@@ -55,21 +61,31 @@ export function resolveFor(
       });
       currLevelNodes.forEach((nodeInfo) => {
         const htmlNode = nodeInfo.node as HTMLElement;
+
         getNNForsOneLvl(htmlNode).forEach((forNode) => {
-          resolveFor(
-            state,
-            forNode.getAttribute("nn-for"),
-            forNode,
-            nodeInfo.scope
-          );
+          if (childCallbacks.has(forNode)) {
+            childCallbacks.get(forNode)();
+          } else
+            childCallbacks.set(
+              forNode,
+              resolveFor(
+                state,
+                forNode.getAttribute("nn-for"),
+                forNode,
+                nodeInfo.scope
+              )
+            );
         });
       });
       const resolvedNodes = currLevelNodes.map(
         (nodeData) => nodeData.node
       ) as Array<Element>;
-      replaceNodeWithNodeList(node, resolvedNodes);
+      if (!initialRenderDone) {
+        node.replaceWith(templateRoot);
+      }
+      replaceNodeWithNodeList(templateRoot, resolvedNodes);
       initialRenderDone = true;
-      return resolvedNodes;
+      // return resolvedNodes;
     }
   };
   render();
@@ -96,7 +112,11 @@ export default class templateHelper {
   resolveNNFors(currNode: Element = this.nnInstance.$el) {
     const forNodes = getNNForsOneLvl(currNode);
     forNodes.forEach((node) => {
-      resolveFor(this.nnInstance.state, node.getAttribute("nn-for"), node);
+      const cb = resolveFor(
+        this.nnInstance.state,
+        node.getAttribute("nn-for"),
+        node
+      );
     });
   }
 }
@@ -113,5 +133,4 @@ export function replaceNodeWithNodeList(
     );
     prev = newNode as HTMLElement;
   });
-  nodeToReplace.remove();
 }
