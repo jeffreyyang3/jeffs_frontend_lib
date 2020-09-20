@@ -38,14 +38,19 @@ export function resolveFor(
     } else {
       const [_, iterName, inArrayName] = inRegex.exec(expr);
       const referencedArray = lookup[inArrayName] as Array<any>;
+      const used = new Set();
       currLevelNodes = referencedArray.map((el) => {
-        if (nodeArrayValMap.has(el)) return nodeArrayValMap.get(el);
+        if (nodeArrayValMap.has(el) && !used.has(el)) {
+          used.add(el);
+          return nodeArrayValMap.get(el);
+        }
         const currLevelNodeInfo = {
           node: node.cloneNode(true),
           scope: { ...scopeVars, [iterName]: el },
           el,
         };
         nodeArrayValMap.set(el, currLevelNodeInfo);
+        used.add(el);
         return currLevelNodeInfo;
       });
       currLevelNodes.forEach((nodeInfo) => {
