@@ -26,37 +26,49 @@ export function resolveFor(
     ...state,
     ...scopeVars,
   };
+  let initialRenderDone = false;
+  let currLevelNodes;
+  const nodeArrayValMap = new Map();
 
-  if (!inRegex.test(expr)) {
-    node.innerHTML = getStateData(lookup, expr);
-
-    return [node];
-  } else {
-    const [_, iterName, inArrayName] = inRegex.exec(expr);
-    const referencedArray = lookup[inArrayName] as Array<any>;
-    const currLevelNodes = referencedArray.map((el) => {
-      return {
-        node: node.cloneNode(true),
-        scope: { ...scopeVars, [iterName]: el },
-      };
-    });
-    currLevelNodes.forEach((nodeInfo) => {
-      const htmlNode = nodeInfo.node as HTMLElement;
-      getNNForsOneLvl(htmlNode).forEach((forNode) => {
-        resolveFor(
-          state,
-          forNode.getAttribute("nn-for"),
-          forNode,
-          nodeInfo.scope
-        );
+  const render = () => {
+    if (!inRegex.test(expr)) {
+      node.innerHTML = getStateData(lookup, expr);
+      initialRenderDone = true;
+      return [node];
+    } else {
+      const [_, iterName, inArrayName] = inRegex.exec(expr);
+      const referencedArray = lookup[inArrayName] as Array<any>;
+      currLevelNodes = referencedArray.map((el) => {
+        if (nodeArrayValMap.has(el)) return nodeArrayValMap.get(el);
+        const currLevelNodeInfo = {
+          node: node.cloneNode(true),
+          scope: { ...scopeVars, [iterName]: el },
+          el,
+        };
+        nodeArrayValMap.set(el, currLevelNodeInfo);
+        return currLevelNodeInfo;
       });
-    });
-    const resolvedNodes = currLevelNodes.map(
-      (nodeData) => nodeData.node
-    ) as Array<Element>;
-    replaceNodeWithNodeList(node, resolvedNodes);
-    return resolvedNodes;
-  }
+      currLevelNodes.forEach((nodeInfo) => {
+        const htmlNode = nodeInfo.node as HTMLElement;
+        getNNForsOneLvl(htmlNode).forEach((forNode) => {
+          resolveFor(
+            state,
+            forNode.getAttribute("nn-for"),
+            forNode,
+            nodeInfo.scope
+          );
+        });
+      });
+      const resolvedNodes = currLevelNodes.map(
+        (nodeData) => nodeData.node
+      ) as Array<Element>;
+      replaceNodeWithNodeList(node, resolvedNodes);
+      initialRenderDone = true;
+      return resolvedNodes;
+    }
+  };
+  render();
+  return render;
 }
 
 export function getNNForsOneLvl(parentNode: Element) {

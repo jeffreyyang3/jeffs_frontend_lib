@@ -1,5 +1,6 @@
 import nn from "../src/typescript/fw/construct";
 beforeEach(() => {
+  console.log("before");
   document.body.innerHTML = `<!DOCTYPE html>
         <body>
         <div id="app">
@@ -21,11 +22,12 @@ beforeEach(() => {
               </span>
           </div>
         </div>
-        
+
     </body>`;
 });
 
 test("for creates correct number of elements", () => {
+  console.log("asdfasd");
   const x = new nn({
     el: "#app",
     data: {
@@ -33,9 +35,12 @@ test("for creates correct number of elements", () => {
     },
   });
   expect(document.querySelectorAll(".forNode").length).toBe(x.state.arr.length);
+
+  console.log("asdfasd");
 });
 
 test("for creates correct number of elements", () => {
+  console.log("in 3");
   const x = new nn({
     el: "#app",
     data: {
@@ -51,6 +56,8 @@ test("for creates correct number of elements", () => {
         expect(Number(iterRefSpan.innerHTML)).toBe(x.state.arr[forNodeIdx]);
       });
   });
+
+  console.log("out 3");
 });
 
 test("evaluates for in correct order when nested iter access", () => {
@@ -72,6 +79,7 @@ test("evaluates for in correct order when nested iter access", () => {
 });
 
 test("multiple nested for", () => {
+  console.log("in 3");
   const x = new nn({
     el: "#app3",
     data: {
@@ -85,4 +93,6 @@ test("multiple nested for", () => {
   finalNodes.forEach((el, idx) => {
     expect(Number(el.innerHTML)).toBe(compare[idx % 3]);
   });
+
+  console.log("out 3");
 });
