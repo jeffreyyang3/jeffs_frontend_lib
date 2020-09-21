@@ -1,6 +1,9 @@
 import nn from "../construct";
 
 export const inRegex = /^(.*) in (.*)/;
+export function getBaseStateReference(expr: string) {
+  return /^.* in (\w*)/.exec(expr)[1];
+}
 
 export function getStateData(
   state: { [key: string]: any },
@@ -53,6 +56,7 @@ export function resolveFor(
       currLevelNodes = referencedArray.map((el) => {
         if (nodeArrayValMap.has(el) && !used.has(el)) {
           used.add(el);
+          console.log("hitting cache");
           return nodeArrayValMap.get(el);
         }
         const currLevelNodeInfo = {
@@ -128,8 +132,6 @@ export default class templateHelper {
         node.getAttribute("nn-for"),
         node
       );
-      cb();
-
       //@ts-ignore
       window.y = cb;
     });
