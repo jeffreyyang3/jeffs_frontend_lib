@@ -25,10 +25,6 @@ export function resolveFor(
   node: Element,
   scopeVars: { [key: string]: any } = {}
 ) {
-  const lookup = {
-    ...state,
-    ...scopeVars,
-  };
   let initialRenderDone = false;
   interface currLevelNodeInfoObj {
     node: Element;
@@ -38,15 +34,17 @@ export function resolveFor(
   const nodeArrayValMap = new Map<any, currLevelNodeInfoObj>();
   const templateRoot = document.createElement("template");
   let childCallbacks = new Map<any, Function>();
-  let oneLevelDownNNFors: Array<Element>;
   const currLevelNNForChildren = new Map<any, Array<Element>>();
   node.removeAttribute("nn-for");
 
   const render = () => {
+    const lookup = {
+      ...state,
+      ...scopeVars,
+    };
     if (!inRegex.test(expr)) {
       node.innerHTML = getStateData(lookup, expr);
       initialRenderDone = true;
-      // return [node];
     } else {
       const [_, iterName, inArrayName] = inRegex.exec(expr);
       const referencedArray = lookup[inArrayName] as Array<any>;
