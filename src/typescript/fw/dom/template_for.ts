@@ -33,9 +33,11 @@ export function resolveFor(
   }
   let currLevelNodes: Array<currLevelNodeInfoObj>;
   const nodeArrayValMap = new Map<any, currLevelNodeInfoObj>();
-  node.removeAttribute("nn-for");
   const templateRoot = document.createElement("template");
   let childCallbacks = new Map<any, Function>();
+  let oneLevelDownNNFors: Array<Element>;
+  const currLevelNNForChildren = new Map<any, Array<Element>>();
+  node.removeAttribute("nn-for");
 
   const render = () => {
     if (!inRegex.test(expr)) {
@@ -46,6 +48,8 @@ export function resolveFor(
       const [_, iterName, inArrayName] = inRegex.exec(expr);
       const referencedArray = lookup[inArrayName] as Array<any>;
       const used = new Set();
+      if (currLevelNodes)
+        currLevelNodes.forEach((nodeInfo) => nodeInfo.node.remove());
       currLevelNodes = referencedArray.map((el) => {
         if (nodeArrayValMap.has(el) && !used.has(el)) {
           used.add(el);
@@ -61,8 +65,15 @@ export function resolveFor(
       });
       currLevelNodes.forEach((nodeInfo) => {
         const htmlNode = nodeInfo.node as HTMLElement;
+        let lst;
+        if (currLevelNNForChildren.get(htmlNode))
+          lst = currLevelNNForChildren.get(htmlNode);
+        else {
+          lst = getNNForsOneLvl(htmlNode);
+          currLevelNNForChildren.set(htmlNode, lst);
+        }
 
-        getNNForsOneLvl(htmlNode).forEach((forNode) => {
+        lst.forEach((forNode) => {
           if (childCallbacks.has(forNode)) {
             childCallbacks.get(forNode)();
           } else
@@ -117,6 +128,10 @@ export default class templateHelper {
         node.getAttribute("nn-for"),
         node
       );
+      cb();
+
+      //@ts-ignore
+      window.y = cb;
     });
   }
 }

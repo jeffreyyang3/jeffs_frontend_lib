@@ -25,6 +25,8 @@ import { getNNForsOneLvl } from "./fw/dom/template_for";
 const x = new nn({
   el: "#app4",
   data: {
-    arrArr: [[1, 2, 3]],
+    arrArr: [[1, 2, 3], [1, 2, 3]],
   },
 });
+//@ts-ignore
+window.x = x;
