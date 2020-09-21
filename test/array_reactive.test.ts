@@ -61,7 +61,7 @@ test("set array from different nn", () => {
   const y = new nn({
     data: { exArray: [3, 4] },
   });
-  // next line should not throw an error
+  // next line errors if setting already wrapped property not handled
   x.state.exArray = y.state.exArray;
   expect(x.state).toHaveProperty("exArray", [3, 4]);
 });

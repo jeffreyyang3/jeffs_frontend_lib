@@ -29,6 +29,11 @@ export default class domHelper {
           (node) => (node.value = nnInstance.state[key])
         );
       }
+      if (key in nnInstance.dynamicHTMLDependencies) {
+        Array.from(nnInstance.dynamicHTMLDependencies[key]).forEach((cb) =>
+          cb()
+        );
+      }
     };
   }
   initReactiveNodes() {

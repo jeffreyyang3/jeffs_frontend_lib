@@ -27,6 +27,9 @@ export default class nn {
   modelBindings: {
     [key: string]: Array<HTMLInputElement>;
   };
+  dynamicHTMLDependencies: {
+    [key: string]: Set<Function>;
+  };
   constructor({ el, data, computed, watch }: constructArgs) {
     this.data = {};
     this.state = {};
@@ -34,6 +37,7 @@ export default class nn {
     this.computedFns = {};
     this.dependentNodes = {};
     this.modelBindings = {};
+    this.dynamicHTMLDependencies = {};
     if (el) {
       this.domHelper = new domHelper({
         nnInstance: this,

@@ -1,6 +1,9 @@
 import nn from "../construct";
 
 export const inRegex = /^(.*) in (.*)/;
+export function getBaseStateReference(expr: string) {
+  return /^.* in (\w*)/.exec(expr)[1];
+}
 
 export function getStateData(
   state: { [key: string]: any },
@@ -22,41 +25,83 @@ export function resolveFor(
   node: Element,
   scopeVars: { [key: string]: any } = {}
 ) {
-  const lookup = {
-    ...state,
-    ...scopeVars,
-  };
-
-  if (!inRegex.test(expr)) {
-    node.innerHTML = getStateData(lookup, expr);
-
-    return [node];
-  } else {
-    const [_, iterName, inArrayName] = inRegex.exec(expr);
-    const referencedArray = lookup[inArrayName] as Array<any>;
-    const currLevelNodes = referencedArray.map((el) => {
-      return {
-        node: node.cloneNode(true),
-        scope: { ...scopeVars, [iterName]: el },
-      };
-    });
-    currLevelNodes.forEach((nodeInfo) => {
-      const htmlNode = nodeInfo.node as HTMLElement;
-      getNNForsOneLvl(htmlNode).forEach((forNode) => {
-        resolveFor(
-          state,
-          forNode.getAttribute("nn-for"),
-          forNode,
-          nodeInfo.scope
-        );
-      });
-    });
-    const resolvedNodes = currLevelNodes.map(
-      (nodeData) => nodeData.node
-    ) as Array<Element>;
-    replaceNodeWithNodeList(node, resolvedNodes);
-    return resolvedNodes;
+  let initialRenderDone = false;
+  interface currLevelNodeInfoObj {
+    node: Element;
+    scope: { [key: string]: any };
   }
+  let currLevelNodes: Array<currLevelNodeInfoObj>;
+  const nodeArrayValMap = new Map<any, currLevelNodeInfoObj>();
+  const templateRoot = document.createElement("template");
+  let childCallbacks = new Map<any, Function>();
+  const currLevelNNForChildren = new Map<any, Array<Element>>();
+  node.removeAttribute("nn-for");
+
+  const render = () => {
+    const lookup = {
+      ...state,
+      ...scopeVars,
+    };
+    if (!inRegex.test(expr)) {
+      node.innerHTML = getStateData(lookup, expr);
+      initialRenderDone = true;
+    } else {
+      const [_, iterName, inArrayName] = inRegex.exec(expr);
+      const referencedArray = lookup[inArrayName] as Array<any>;
+      const used = new Set();
+      if (currLevelNodes)
+        currLevelNodes.forEach((nodeInfo) => nodeInfo.node.remove());
+      currLevelNodes = referencedArray.map((el) => {
+        if (nodeArrayValMap.has(el) && !used.has(el)) {
+          used.add(el);
+          return nodeArrayValMap.get(el);
+        }
+        const currLevelNodeInfo = {
+          node: node.cloneNode(true) as Element,
+          scope: { ...scopeVars, [iterName]: el },
+        };
+        nodeArrayValMap.set(el, currLevelNodeInfo);
+        used.add(el);
+        return currLevelNodeInfo;
+      });
+      currLevelNodes.forEach((nodeInfo) => {
+        const htmlNode = nodeInfo.node as HTMLElement;
+        let lst;
+        if (currLevelNNForChildren.get(htmlNode))
+          lst = currLevelNNForChildren.get(htmlNode);
+        else {
+          lst = getNNForsOneLvl(htmlNode);
+          currLevelNNForChildren.set(htmlNode, lst);
+        }
+
+        lst.forEach((forNode) => {
+          if (childCallbacks.has(forNode)) {
+            childCallbacks.get(forNode)();
+          } else
+            childCallbacks.set(
+              forNode,
+              resolveFor(
+                state,
+                forNode.getAttribute("nn-for"),
+                forNode,
+                nodeInfo.scope
+              )
+            );
+        });
+      });
+      const resolvedNodes = currLevelNodes.map(
+        (nodeData) => nodeData.node
+      ) as Array<Element>;
+      if (!initialRenderDone) {
+        node.replaceWith(templateRoot);
+      }
+      replaceNodeWithNodeList(templateRoot, resolvedNodes);
+      initialRenderDone = true;
+      // return resolvedNodes;
+    }
+  };
+  render();
+  return render;
 }
 
 export function getNNForsOneLvl(parentNode: Element) {
@@ -79,7 +124,12 @@ export default class templateHelper {
   resolveNNFors(currNode: Element = this.nnInstance.$el) {
     const forNodes = getNNForsOneLvl(currNode);
     forNodes.forEach((node) => {
-      resolveFor(this.nnInstance.state, node.getAttribute("nn-for"), node);
+      const expr = node.getAttribute("nn-for");
+      const cb = resolveFor(this.nnInstance.state, expr, node);
+      const baseStateReferenced = getBaseStateReference(expr);
+      const deps = this.nnInstance.dynamicHTMLDependencies;
+      if (baseStateReferenced in deps) deps[baseStateReferenced].add(cb);
+      else deps[baseStateReferenced] = new Set([cb]);
     });
   }
 }
@@ -96,5 +146,4 @@ export function replaceNodeWithNodeList(
     );
     prev = newNode as HTMLElement;
   });
-  nodeToReplace.remove();
 }
