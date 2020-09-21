@@ -6,57 +6,17 @@
   </head>
   <body>
     <div id="app">
-      <h1>reactive data:</h1>
-      <h1 nn-txt="asdf"></h1>
-      <div id="app4">
-        app4
-        <div nn-for="arr in arrArr">
-          <div nn-for="i in arr">
-            <div nn-for="i" class="final4"></div>
-          </div>
-        </div>
+      <div nn-for="word in wordData" class="wordContainer">
+        <span nn-for="word.word" class="word"></span>
+        <span nn-for="word.typed" class="typed"></span>
       </div>
-
-      <!-- <div nn-for="i in arr">
-        <span nn-for="i"></span>
-      </div> -->
-      <div nn-for="i in arrObjs">
-        <span nn-for="i.a"></span>
-      </div>
-      <h1>input data: <span nn-txt="inputVal"></span></h1>
-      <h1>input data: <span nn-txt="inputVal"></span></h1>
-      <h1>input data: <span nn-txt="inputVal"></span></h1>
-      <h1>input data: <span nn-txt="inputVal"></span></h1>
-      <h1>input data: <span nn-txt="inputVal"></span></h1>
-      <h1>input data: <span nn-txt="inputVal"></span></h1>
-      <input type="text" nn-model="inputVal" />
-    </div>
-    <div class="sandbox">
-      <div nn-for="asdf in fasd">
-        one level deep
-        <div nn-for="asdf in fasd">
-          two levels deep
-          <div nn-for="asdf in fasd">three levels deep</div>
-        </div>
-      </div>
-
-      <div nn-for="asdf in fasd"></div>
     </div>
   </body>
   <script src="bundle.js"></script>
-  <!--  <script type="text/javascript">-->
-  <!--    class MyComponent extends HTMLElement {-->
-  <!--      constructor () {-->
-  <!--        super();-->
-  <!--        console.log('construct');-->
-  <!--      }-->
-  <!--      connectedCallback(){-->
-  <!--        this.innerHTML = `<h1>heyy</h1>`;-->
-  <!--      }-->
-  <!--      attributeChangedCallback(name, oldVal, newVal) {-->
-  <!--        console.log(`attribute ${name} changed`);-->
-  <!--      }-->
-  <!--    }-->
-  <!--    window.customElements.define('my-component', MyComponent);-->
-  <!--  </script>-->
+  <style>
+    .wordContainer {
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
 </html>

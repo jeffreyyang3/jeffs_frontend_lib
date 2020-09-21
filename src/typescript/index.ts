@@ -1,32 +1,38 @@
 import nn from "./fw/construct";
-import { getNNForsOneLvl } from "./fw/dom/template_for";
+import exWords from "../game/exWords.json";
 
-// const y = new nn({
-//   el: "#app",
-//   data: {
-//     asdf: "this gonna change in 2 secs",
-//     inputVal: "changing in 3 seconds",
-//     arr: [1, 2, 3, 4],
-//     arrObjs: [1, 2, 3, 4].map((num) => {
-//       return {
-//         a: num,
-//       };
-//     }),
-//   },
-// });
+interface wordsJson {
+  words: Array<String>;
+}
 
-// setTimeout(() => {
-//   y.state.asdf = "changed";
-// }, 2000);
+const { words } = exWords as wordsJson;
 
-// setTimeout(() => {
-//   y.state.inputVal = "newInputVal";
-// }, 3000);
+console.time("start");
 const x = new nn({
-  el: "#app4",
+  el: "#app",
   data: {
-    arrArr: [[1, 2, 3], [1, 2, 3]],
+    wordData: words
+      .filter((_, idx) => idx < 20)
+      .map((word) => {
+        return {
+          word,
+          typed: "t",
+        };
+      }),
   },
+  // computed: {
+  //   compute: {
+  //     fn: function() {
+  //       const copy = [...this.state.wordData];
+  //       copy.push({ word: "newWord" });
+  //       return copy;
+  //     },
+  //     dependencies: ["wordData"],
+  //   },
+  // },
 });
+x.setState(["wordData", 0, "word"], "changed");
+
+console.timeEnd("start");
 //@ts-ignore
 window.x = x;
