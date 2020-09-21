@@ -54,7 +54,6 @@ export function resolveFor(
       currLevelNodes = referencedArray.map((el) => {
         if (nodeArrayValMap.has(el) && !used.has(el)) {
           used.add(el);
-          console.log("hitting cache");
           return nodeArrayValMap.get(el);
         }
         const currLevelNodeInfo = {
@@ -125,13 +124,12 @@ export default class templateHelper {
   resolveNNFors(currNode: Element = this.nnInstance.$el) {
     const forNodes = getNNForsOneLvl(currNode);
     forNodes.forEach((node) => {
-      const cb = resolveFor(
-        this.nnInstance.state,
-        node.getAttribute("nn-for"),
-        node
-      );
-      //@ts-ignore
-      window.y = cb;
+      const expr = node.getAttribute("nn-for");
+      const cb = resolveFor(this.nnInstance.state, expr, node);
+      const baseStateReferenced = getBaseStateReference(expr);
+      const deps = this.nnInstance.dynamicHTMLDependencies;
+      if (baseStateReferenced in deps) deps[baseStateReferenced].add(cb);
+      else deps[baseStateReferenced] = new Set([cb]);
     });
   }
 }

@@ -78,6 +78,16 @@ test("evaluates for in correct order when nested iter access", () => {
   });
 });
 
+test("nested for 1", () => {
+  const x = new nn({
+    el: "#app4",
+    data: {
+      arrArr: [[1, 2, 3], [1, 2, 3]],
+    },
+  });
+  expect(x.$el.querySelectorAll(".final4").length).toBe(6);
+});
+
 test("multiple nested for", () => {
   const x = new nn({
     el: "#app3",
@@ -93,13 +103,20 @@ test("multiple nested for", () => {
   });
 });
 
-test("nested for 1", () => {
+test("nested for : reactivity", () => {
   const x = new nn({
     el: "#app4",
     data: {
       arrArr: [[1, 2, 3], [1, 2, 3]],
     },
   });
-
-  expect(x.$el.querySelectorAll(".final4").length).toBe(6);
+  const final4s = () => x.$el.querySelectorAll(".final4");
+  expect(final4s().length).toBe(6);
+  x.state.arrArr.push([1, 2, 3]);
+  expect(final4s().length).toBe(9);
+  x.state.arrArr.shift();
+  expect(final4s().length).toBe(6);
+  x.setState(["arrArr", 0, 1], 1234);
+  expect(final4s().length).toBe(6);
+  expect(Array.from(final4s()).some((el) => el.innerHTML === "1234"));
 });
