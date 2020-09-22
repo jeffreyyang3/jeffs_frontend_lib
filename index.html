@@ -6,10 +6,20 @@
   </head>
   <body>
     <div id="app">
-      <div nn-for="word in wordData" class="wordContainer">
-        <span nn-for="word.word" class="word"></span>
-        <span nn-for="word.typed" class="typed"></span>
+      <div class="allWords">
+        <div nn-for="word in wordData" class="wordContainer">
+          <span nn-for="word.word" class="word"></span>
+          <span nn-for="word.typed" class="typed"></span>
+        </div>
       </div>
+
+      <input type="text" nn-model="currTyped" id="inputBox" />
+      <div nn-txt="currTimeDisplay"></div>
+      correct chars total
+      <div nn-txt="correctCharsTotal"></div>
+      wpm
+
+      <div nn-txt="wpm"></div>
     </div>
   </body>
   <script src="bundle.js"></script>
@@ -17,6 +27,18 @@
     .wordContainer {
       display: flex;
       flex-direction: column;
+      margin: 5px;
+    }
+
+    .allWords {
+      display: flex;
+      flex-wrap: wrap;
+      width: 60vh;
+    }
+
+    #app {
+      display: flex;
+      justify-content: center;
     }
   </style>
 </html>
