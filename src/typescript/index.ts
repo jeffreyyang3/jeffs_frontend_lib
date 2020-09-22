@@ -27,6 +27,7 @@ const x = new nn({
   },
   watch: {
     currTyped: function() {
+      this.state.hasStarted = true;
       const display = this.state.currTyped + "_";
       this.setState(
         ["wordData", this.state.currWord, "typed"],
@@ -41,7 +42,7 @@ const x = new nn({
   },
   computed: {
     currTimeDisplay: {
-      fn: function() {
+      fn() {
         const minutes = Math.floor(this.state.secondsSinceStart / 60);
         const seconds = this.state.secondsSinceStart % 60;
         const minString = minutes >= 10 ? `${minutes}` : `0${minutes}`;
@@ -50,8 +51,14 @@ const x = new nn({
       },
       dependencies: ["secondsSinceStart"],
     },
+    startTxt: {
+      fn() {
+        return this.state.hasStarted ? "" : "Start typing to begin.";
+      },
+      dependencies: ["hasStarted"],
+    },
     canAdvance: {
-      fn: function() {
+      fn() {
         return (
           this.state.wordData[this.state.currWord].word ===
           this.state.currTyped.trim()
@@ -60,7 +67,7 @@ const x = new nn({
       dependencies: ["currWord", "currTyped", "wordData"],
     },
     wpm: {
-      fn: function() {
+      fn() {
         const wpm =
           this.state.correctCharsTotal /
           5 /
@@ -71,11 +78,10 @@ const x = new nn({
     },
   },
 });
-
+console.timeEnd("start");
 setInterval(() => {
-  x.state.secondsSinceStart++;
+  if (x.state.hasStarted) x.state.secondsSinceStart++;
 }, 1000);
 
-console.timeEnd("start");
 //@ts-ignore
 window.x = x;

@@ -6,39 +6,70 @@
   </head>
   <body>
     <div id="app">
-      <div class="allWords">
-        <div nn-for="word in wordData" class="wordContainer">
-          <span nn-for="word.word" class="word"></span>
-          <span nn-for="word.typed" class="typed"></span>
+      <div class="gameContainer">
+        <div class="allWords">
+          <div nn-for="word in wordData" class="wordContainer">
+            <div nn-for="word.word" class="word"></div>
+            <div nn-for="word.typed" class="typed word"></div>
+          </div>
         </div>
+        <input type="text" nn-model="currTyped" id="inputBox" autofocus />
+        <div class="wpm">WPM: <span nn-txt="wpm"></span></div>
+        <div class="wpm" nn-txt="startTxt"></div>
       </div>
-
-      <input type="text" nn-model="currTyped" id="inputBox" />
-      <div nn-txt="currTimeDisplay"></div>
-      correct chars total
-      <div nn-txt="correctCharsTotal"></div>
-      wpm
-
-      <div nn-txt="wpm"></div>
     </div>
   </body>
-  <script src="bundle.js"></script>
   <style>
+    body {
+      background-color: #282836;
+      color: #f2f2f2;
+      font-family: Helvetica, sans-serif;
+    }
+
+    .word {
+      height: 18px;
+    }
     .wordContainer {
       display: flex;
       flex-direction: column;
       margin: 5px;
+
+      font-weight: 550;
+      user-select: none;
     }
 
     .allWords {
       display: flex;
       flex-wrap: wrap;
-      width: 60vh;
+      width: 600px;
+      height: 200px;
+      padding-top: 40px;
     }
 
     #app {
       display: flex;
       justify-content: center;
     }
+    .wpm {
+      font-size: 18px;
+      font-weight: 550;
+    }
+
+    #inputBox {
+      font-size: 18px;
+      padding-left: 10px;
+      margin-bottom: 25px;
+      width: 100%;
+      color: #f2f2f2;
+      padding-right: 10px;
+      padding-top: 9px;
+      padding-bottom: 9px;
+      border: 1px solid rgb(255, 121, 198);
+      border-radius: 4px;
+      background-color: #282836;
+      outline: none;
+    }
   </style>
+
+  <script src="bundle.js"></script>
 </html>
