@@ -1,50 +1,25 @@
 import nn from "./fw/construct";
-import exWords from "../game/exWords.json";
-
-interface wordsJson {
-  words: Array<String>;
-}
-
-const { words } = exWords as wordsJson;
-function shuffle(a: Array<any>) {
-  let j, x, i;
-  for (i = a.length - 1; i > 0; i--) {
-    j = Math.floor(Math.random() * (i + 1));
-    x = a[i];
-    a[i] = a[j];
-    a[j] = x;
-  }
-  return a;
-}
-
-const getWords = () =>
-  shuffle(words)
-    .filter((_, idx) => idx < 20)
-    .map((word) => {
-      return {
-        word,
-        typed: "",
-      };
-    });
+import { getDiff, getBaseState } from '../game/helpers';
 
 console.time("start");
 const x = new nn({
   el: "#app",
-  data: {
-    currWord: 0,
-    currTyped: "",
-    hasStarted: false,
-    secondsSinceStart: 0,
-    correctCharsTotal: 0,
-    wordData: getWords(),
-  },
+  data: getBaseState(),
   watch: {
     currTyped: function() {
       this.state.hasStarted = true;
+      const currWordObj = this.state.wordData[this.state.currWord];
+      const { word } = currWordObj;
+      if(!this.state.canAdvance && this.state.currTyped.length > word.length){
+        this.state.currTyped = this.state.currTyped.slice(0, -1);
+      }
+      const { wrong, typed } = getDiff(word, this.state.currTyped);
+      currWordObj.wrong = wrong;
       this.setState(
         ["wordData", this.state.currWord, "typed"],
-        this.state.currTyped
+        typed
       );
+      this.state.wordData[this.state.currWord].typed
 
       if (this.state.canAdvance) {
         this.state.correctCharsTotal += this.state.currTyped.length;
@@ -98,17 +73,10 @@ const x = new nn({
 });
 console.timeEnd("start");
 setInterval(() => {
-  if (x.state.hasStarted) x.state.secondsSinceStart++;
-}, 1000);
+  if (x.state.hasStarted) x.state.secondsSinceStart += 0.5;
+}, 500);
 document.getElementById('reset').addEventListener(('click'), () => {
-  const base : { [key:string]: any } = {
-    currWord: 0,
-      currTyped: "",
-    hasStarted: false,
-    secondsSinceStart: 0,
-    correctCharsTotal: 0,
-    wordData: getWords(),
-  };
+  const base = getBaseState();
   Object.keys(base).forEach(key => x.state[key] = base[key])
 });
 

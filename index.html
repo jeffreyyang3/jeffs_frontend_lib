@@ -10,7 +10,10 @@
         <div class="allWords">
           <div nn-for="word in wordData" class="wordContainer">
             <div nn-for="word.word" class="word"></div>
-            <div nn-for="word.typed" class="typed word"></div>
+            <div class="word">
+              <span nn-for="word.typed" class="typed"></span
+              ><span nn-for="word.wrong" class="wrong"></span>
+            </div>
           </div>
         </div>
         <input type="text" nn-model="currTyped" id="inputBox" autofocus />
@@ -26,21 +29,24 @@
     body {
       background-color: #282836;
       color: #f2f2f2;
-      font-family: Helvetica, sans-serif;
+      font-family: Monaco, monospace;
     }
 
     .word {
       height: 18px;
     }
 
-    .typed.word {
+    .word > .typed {
       color: rgb(255, 121, 198);
+    }
+
+    .word > .wrong {
+      color: red;
     }
     .wordContainer {
       display: flex;
       flex-direction: column;
-      margin: 5px;
-      font-weight: 550;
+      margin-right: 10px;
       user-select: none;
       /*height: 20px;*/
     }
@@ -61,10 +67,10 @@
       display: flex;
       justify-content: center;
     }
-    .wpm {
+    /* .wpm {
       font-size: 18px;
       font-weight: 550;
-    }
+    } */
 
     #inputBox {
       font-size: 18px;
