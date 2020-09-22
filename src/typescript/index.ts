@@ -6,6 +6,26 @@ interface wordsJson {
 }
 
 const { words } = exWords as wordsJson;
+function shuffle(a: Array<any>) {
+  let j, x, i;
+  for (i = a.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1));
+    x = a[i];
+    a[i] = a[j];
+    a[j] = x;
+  }
+  return a;
+}
+
+const getWords = () =>
+  shuffle(words)
+    .filter((_, idx) => idx < 20)
+    .map((word) => {
+      return {
+        word,
+        typed: "",
+      };
+    });
 
 console.time("start");
 const x = new nn({
@@ -16,27 +36,25 @@ const x = new nn({
     hasStarted: false,
     secondsSinceStart: 0,
     correctCharsTotal: 0,
-    wordData: words
-      .filter((_, idx) => idx < 20)
-      .map((word) => {
-        return {
-          word,
-          typed: "",
-        };
-      }),
+    wordData: getWords(),
   },
   watch: {
     currTyped: function() {
       this.state.hasStarted = true;
-      const display = this.state.currTyped + "_";
       this.setState(
         ["wordData", this.state.currWord, "typed"],
-        this.state.canAdvance ? this.state.currTyped : display
+        this.state.currTyped
       );
+
       if (this.state.canAdvance) {
         this.state.correctCharsTotal += this.state.currTyped.length;
-        this.state.currWord++;
-        this.state.currTyped = "";
+
+        if (this.state.currWord === this.state.wordData.length - 1) {
+          this.state.hasStarted = false;
+        } else {
+          this.state.currWord++;
+          this.state.currTyped = "";
+        }
       }
     },
   },
@@ -82,6 +100,17 @@ console.timeEnd("start");
 setInterval(() => {
   if (x.state.hasStarted) x.state.secondsSinceStart++;
 }, 1000);
+document.getElementById('reset').addEventListener(('click'), () => {
+  const base : { [key:string]: any } = {
+    currWord: 0,
+      currTyped: "",
+    hasStarted: false,
+    secondsSinceStart: 0,
+    correctCharsTotal: 0,
+    wordData: getWords(),
+  };
+  Object.keys(base).forEach(key => x.state[key] = base[key])
+});
 
 //@ts-ignore
 window.x = x;

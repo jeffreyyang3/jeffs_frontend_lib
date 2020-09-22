@@ -36,6 +36,7 @@ export function resolveFor(
   let childCallbacks = new Map<any, Function>();
   const currLevelNNForChildren = new Map<any, Array<Element>>();
   node.removeAttribute("nn-for");
+  let save : Array<currLevelNodeInfoObj>;
 
   const render = () => {
     const lookup = {
@@ -49,8 +50,9 @@ export function resolveFor(
       const [_, iterName, inArrayName] = inRegex.exec(expr);
       const referencedArray = lookup[inArrayName] as Array<any>;
       const used = new Set();
-      if (currLevelNodes)
+      if (currLevelNodes){
         currLevelNodes.forEach((nodeInfo) => nodeInfo.node.remove());
+      }
       currLevelNodes = referencedArray.map((el) => {
         if (nodeArrayValMap.has(el) && !used.has(el)) {
           used.add(el);

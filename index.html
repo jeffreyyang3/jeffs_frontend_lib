@@ -16,6 +16,9 @@
         <input type="text" nn-model="currTyped" id="inputBox" autofocus />
         <div class="wpm">WPM: <span nn-txt="wpm"></span></div>
         <div class="wpm" nn-txt="startTxt"></div>
+        <div class="wpm" id="reset">
+          Reset
+        </div>
       </div>
     </div>
   </body>
@@ -29,13 +32,21 @@
     .word {
       height: 18px;
     }
+
+    .typed.word {
+      color: rgb(255, 121, 198);
+    }
     .wordContainer {
       display: flex;
       flex-direction: column;
       margin: 5px;
-
       font-weight: 550;
       user-select: none;
+      /*height: 20px;*/
+    }
+
+    #reset {
+      padding-top: 20px;
     }
 
     .allWords {
