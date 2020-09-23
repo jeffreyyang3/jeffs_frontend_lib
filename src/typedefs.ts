@@ -9,10 +9,14 @@ export interface constructArgs {
     [key: string]: { fn: () => any; dependencies: Array<string> };
   };
   watch?: {
-    [key: string]: () => any
-  }
+    [key: string]: () => any;
+  };
 }
 
 export interface nnHTMLElement extends HTMLElement {
   __nn__: nn;
+}
+export interface currLevelNodeInfoObj {
+  node: Element;
+  scope: { [key: string]: any };
 }

@@ -1,4 +1,5 @@
 import nn from "../construct";
+import { currLevelNodeInfoObj } from '../typedefs';
 
 export const inRegex = /^(.*) in (.*)/;
 export function getBaseStateReference(expr: string) {
@@ -26,10 +27,7 @@ export function resolveFor(
   scopeVars: { [key: string]: any } = {}
 ) {
   let initialRenderDone = false;
-  interface currLevelNodeInfoObj {
-    node: Element;
-    scope: { [key: string]: any };
-  }
+  
   let currLevelNodes: Array<currLevelNodeInfoObj>;
   const nodeArrayValMap = new Map<any, currLevelNodeInfoObj>();
   const templateRoot = document.createElement("template");
