@@ -1,5 +1,5 @@
 import nn from "../construct";
-import { currLevelNodeInfoObj } from '../typedefs';
+import { currLevelNodeInfoObj, nnForDS } from "../typedefs";
 
 export const inRegex = /^(.*) in (.*)/;
 export function getBaseStateReference(expr: string) {
@@ -23,31 +23,29 @@ export function resolveFor(
     [key: string]: any;
   },
   expr: string,
-  node: Element,
+  referenceNode: Element,
   scopeVars: { [key: string]: any } = {}
 ) {
   let initialRenderDone = false;
-  
-  let currLevelNodes: Array<currLevelNodeInfoObj>;
-  const nodeArrayValMap = new Map<any, currLevelNodeInfoObj>();
   const templateRoot = document.createElement("template");
-  let childCallbacks = new Map<any, Function>();
-  const currLevelNNForChildren = new Map<any, Array<Element>>();
-  node.removeAttribute("nn-for");
-
+  let currLevelNodes: nnForDS["nodeInfoList"];
+  const nodeArrayValMap: nnForDS["valNodeInfoMap"] = new Map();
+  let childCallbacks: nnForDS["valRenderCallbackMap"] = new Map();
+  const nodeToForChildren: nnForDS["nodeToNNForChildrenMap"] = new Map();
+  referenceNode.removeAttribute("nn-for");
   const render = () => {
     const lookup = {
       ...state,
       ...scopeVars,
     };
     if (!inRegex.test(expr)) {
-      node.innerHTML = getStateData(lookup, expr);
+      referenceNode.innerHTML = getStateData(lookup, expr);
       initialRenderDone = true;
     } else {
       const [_, iterName, inArrayName] = inRegex.exec(expr);
       const referencedArray = lookup[inArrayName] as Array<any>;
       const used = new Set();
-      if (currLevelNodes){
+      if (currLevelNodes) {
         currLevelNodes.forEach((nodeInfo) => nodeInfo.node.remove());
       }
       currLevelNodes = referencedArray.map((el) => {
@@ -56,7 +54,7 @@ export function resolveFor(
           return nodeArrayValMap.get(el);
         }
         const currLevelNodeInfo = {
-          node: node.cloneNode(true) as Element,
+          node: referenceNode.cloneNode(true) as Element,
           scope: { ...scopeVars, [iterName]: el },
         };
         nodeArrayValMap.set(el, currLevelNodeInfo);
@@ -66,11 +64,11 @@ export function resolveFor(
       currLevelNodes.forEach((nodeInfo) => {
         const htmlNode = nodeInfo.node as HTMLElement;
         let lst;
-        if (currLevelNNForChildren.get(htmlNode))
-          lst = currLevelNNForChildren.get(htmlNode);
+        if (nodeToForChildren.get(htmlNode))
+          lst = nodeToForChildren.get(htmlNode);
         else {
           lst = getNNForsOneLvl(htmlNode);
-          currLevelNNForChildren.set(htmlNode, lst);
+          nodeToForChildren.set(htmlNode, lst);
         }
 
         lst.forEach((forNode) => {
@@ -92,7 +90,7 @@ export function resolveFor(
         (nodeData) => nodeData.node
       ) as Array<Element>;
       if (!initialRenderDone) {
-        node.replaceWith(templateRoot);
+        referenceNode.replaceWith(templateRoot);
       }
       replaceNodeWithNodeList(templateRoot, resolvedNodes);
       initialRenderDone = true;

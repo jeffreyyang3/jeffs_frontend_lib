@@ -20,3 +20,11 @@ export interface currLevelNodeInfoObj {
   node: Element;
   scope: { [key: string]: any };
 }
+
+export interface nnForDS {
+  nodeInfoObj: currLevelNodeInfoObj;
+  valNodeInfoMap: Map<any, currLevelNodeInfoObj>;
+  valRenderCallbackMap: Map<Element, Function>;
+  nodeToNNForChildrenMap: Map<Element, Array<Element>>;
+  nodeInfoList: Array<currLevelNodeInfoObj>;
+}
