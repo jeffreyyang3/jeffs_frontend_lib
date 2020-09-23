@@ -36,7 +36,6 @@ export function resolveFor(
   let childCallbacks = new Map<any, Function>();
   const currLevelNNForChildren = new Map<any, Array<Element>>();
   node.removeAttribute("nn-for");
-  let save : Array<currLevelNodeInfoObj>;
 
   const render = () => {
     const lookup = {

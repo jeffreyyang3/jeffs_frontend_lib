@@ -1,7 +1,7 @@
 import {
   resolveFor,
   getNNForsOneLvl,
-} from "../src/typescript/fw/dom/template_for";
+} from "../src/dom/template_for";
 beforeEach(() => {
   document.body.innerHTML = `<!DOCTYPE html>
         <body>

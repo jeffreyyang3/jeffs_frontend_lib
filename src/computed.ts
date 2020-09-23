@@ -1,4 +1,4 @@
-import { constructArgs } from "../typedefs";
+import { constructArgs } from "./typedefs";
 import nn from "./construct";
 
 export default class computedHelper {

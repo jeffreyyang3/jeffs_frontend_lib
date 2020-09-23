@@ -1,5 +1,5 @@
-import nn from "../src/typescript/fw/construct";
-import { nnHTMLElement } from "../src/typescript/typedefs";
+import nn from "../src/construct";
+import { nnHTMLElement } from "../src/typedefs";
 beforeEach(() => {
   document.body.innerHTML = `<!DOCTYPE html>
         <body>

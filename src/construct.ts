@@ -1,4 +1,4 @@
-import { constructArgs, nnHTMLElement } from "../typedefs";
+import { constructArgs, nnHTMLElement } from "./typedefs";
 import computedHelper from "./computed";
 import domHelper from "./dom/dom";
 import watchHelper from "./watch";
@@ -12,7 +12,6 @@ export default class nn {
   error: string;
   data: constructArgs["data"];
   state: constructArgs["data"];
-  document: constructArgs["jsDocument"] | Document;
   public computedHelper;
   public domHelper;
   public watchHelper;

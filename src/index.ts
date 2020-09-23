@@ -1,5 +1,5 @@
-import nn from "./fw/construct";
-import { getDiff, getBaseState } from '../game/helpers';
+import nn from "./construct";
+import { getDiff, getBaseState } from './game/helpers';
 
 console.time("start");
 const x = new nn({
@@ -19,8 +19,6 @@ const x = new nn({
         ["wordData", this.state.currWord, "typed"],
         typed
       );
-      this.state.wordData[this.state.currWord].typed
-
       if (this.state.canAdvance) {
         this.state.correctCharsTotal += this.state.currTyped.length;
 

@@ -2,7 +2,7 @@ import {
   inRegex,
   getStateData,
   getBaseStateReference,
-} from "../src/typescript/fw/dom/template_for";
+} from "../src/dom/template_for";
 test("for expr regex captures correct groups, basic", () => {
   const [_, iterName, inName] = inRegex.exec("asdf in fasd");
   expect(iterName).toBe("asdf");

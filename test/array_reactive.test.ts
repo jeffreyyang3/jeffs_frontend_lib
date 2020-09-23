@@ -1,4 +1,4 @@
-import nn from "../src/typescript/fw/construct";
+import nn from "../src/construct";
 test("computed depending on array: push", () => {
   const x = new nn({
     data: { ab: ["a", "b"], c: "d" },

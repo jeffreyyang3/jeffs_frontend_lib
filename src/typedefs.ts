@@ -1,5 +1,4 @@
-import nn from "./fw/construct";
-import { JSDOM } from "jsdom";
+import nn from "./construct";
 
 export interface constructArgs {
   el?: string;
@@ -12,8 +11,6 @@ export interface constructArgs {
   watch?: {
     [key: string]: () => any
   }
-  jsDocument?: JSDOM["window"]["document"];
-
 }
 
 export interface nnHTMLElement extends HTMLElement {

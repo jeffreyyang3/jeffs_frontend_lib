@@ -1,5 +1,5 @@
 import nn from './construct';
-import { constructArgs } from "../typedefs";
+import { constructArgs } from "./typedefs";
 
 export default class watchHelper { // might be kinda extra
     private readonly nnInstance;
