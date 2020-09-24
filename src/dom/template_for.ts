@@ -4,6 +4,7 @@ import {
   getNNForsOneLvl,
   getCurrLevelNodes,
   resolveChildFor,
+  checkNeedsRepopulate,
 } from "./template_for_resolve";
 
 export const inRegex = /^(.*) in (.*)/;
@@ -34,9 +35,11 @@ export function resolveFor(
   let initialRenderDone = false;
   const templateRoot = document.createElement("template");
   let currLevelNodes: nnForDS["nodeInfoList"];
+  let prevCurrLevelNodes: nnForDS["nodeInfoList"];
   const nodeArrayValMap: nnForDS["valNodeInfoMap"] = new Map();
   let valRenderCallbackMap: nnForDS["valRenderCallbackMap"] = new Map();
   const nodeToForChildren: nnForDS["nodeToNNForChildrenMap"] = new Map();
+  let needsDOMRepopulate = true;
   referenceNode.removeAttribute("nn-for");
   const render = () => {
     const lookup = {
@@ -50,7 +53,7 @@ export function resolveFor(
       const [_, iterName, inArrayName] = inRegex.exec(expr);
       const referencedArray = lookup[inArrayName] as Array<any>;
       if (currLevelNodes) {
-        currLevelNodes.forEach((nodeInfo) => nodeInfo.node.remove());
+        // currLevelNodes.forEach((nodeInfo) => nodeInfo.node.remove());
       }
       currLevelNodes = getCurrLevelNodes({
         nodeArrayValMap,
@@ -59,6 +62,15 @@ export function resolveFor(
         iterName,
         referenceNode,
       });
+
+      needsDOMRepopulate = checkNeedsRepopulate(
+        prevCurrLevelNodes,
+        currLevelNodes
+      );
+      if (needsDOMRepopulate) {
+        currLevelNodes.forEach((nodeInfo) => nodeInfo.node.remove());
+      }
+
       currLevelNodes.forEach(({ node, scope }) => {
         resolveChildFor({
           node,
@@ -75,8 +87,11 @@ export function resolveFor(
       if (!initialRenderDone) {
         referenceNode.replaceWith(templateRoot);
       }
-      replaceNodeWithNodeList(templateRoot, resolvedNodes);
+      if (needsDOMRepopulate || true) {
+        populateAnchor(templateRoot, resolvedNodes);
+      }
       initialRenderDone = true;
+      prevCurrLevelNodes = currLevelNodes;
     }
   };
   render();
@@ -101,15 +116,12 @@ export default class templateHelper {
   }
 }
 
-export function replaceNodeWithNodeList(
-  nodeToReplace: Element,
-  nodeList: Node[]
-) {
+export function populateAnchor(anchor: Element, nodeList: Node[]) {
   let prev: HTMLElement;
   nodeList.forEach((newNode) => {
-    nodeToReplace.parentNode.insertBefore(
+    anchor.parentNode.insertBefore(
       newNode,
-      prev ? prev.nextSibling : nodeToReplace.nextSibling
+      prev ? prev.nextSibling : anchor.nextSibling
     );
     prev = newNode as HTMLElement;
   });

@@ -77,3 +77,18 @@ export function getNNForsOneLvl(parentNode: Element) {
     return returnVal;
   });
 }
+
+export function checkNeedsRepopulate(
+  prev: nnForDS["nodeInfoList"],
+  curr: nnForDS["nodeInfoList"]
+) {
+  //splitting code for debug ease
+  const initial = prev && prev.length === curr.length;
+  if (!initial) return false;
+  const listsEqual = curr.every(({ node, scope }, idx) => {
+    const nodesEqual = node === prev[idx].node;
+    const scopeEqual = scope === prev[idx].scope;
+    return nodesEqual && scopeEqual;
+  });
+  return !listsEqual;
+}
