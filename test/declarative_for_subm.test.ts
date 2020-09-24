@@ -1,7 +1,5 @@
-import {
-  resolveFor,
-  getNNForsOneLvl,
-} from "../src/dom/template_for";
+import { resolveFor } from "../src/dom/template_for";
+import { getNNForsOneLvl } from "../src/dom/template_for_resolve";
 beforeEach(() => {
   document.body.innerHTML = `<!DOCTYPE html>
         <body>
