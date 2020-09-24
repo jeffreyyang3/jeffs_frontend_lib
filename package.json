@@ -1,8 +1,9 @@
 {
-  "name": "jeffs_frontend_lib",
-  "version": "1.0.0",
+"name": "jeffs_frontend_lib",
+  "version": "1.0.7",
+  "types": "dist/src/construct.d.ts",
   "description": "",
-  "main": "dist/bundle.js",
+  "main": "dist/src/construct.js",
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.11.5",
@@ -31,6 +32,7 @@
   "scripts": {
     "test": "jest",
     "build": "webpack --config webpack.config.js",
+    "build2": "tsc",
     "dev": "webpack-dev-server",
     "devDocker": "docker-compose up --build",
     "devTest": "jest --watchAll"

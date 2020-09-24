@@ -6,7 +6,7 @@ module.exports = {
   entry: "./src/construct.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
+    filename: "index.js",
   },
   devServer: {
     host: "0.0.0.0",
