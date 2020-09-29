@@ -1,4 +1,4 @@
-import nn from "../src/construct";
+import nn from "../src/index";
 
 test("nn data set", () => {
   const x = new nn({

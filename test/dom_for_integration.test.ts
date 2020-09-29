@@ -1,4 +1,4 @@
-import nn from "../src/construct";
+import nn from "../src/index";
 beforeEach(() => {
   document.body.innerHTML = `<!DOCTYPE html>
         <body>

@@ -1,9 +1,9 @@
-import nn from "../construct";
+import nn from "../index";
 import { currLevelNodeInfoObj, nnForDS } from "../typedefs";
 import {
   getNNForsOneLvl,
   getCurrLevelNodes,
-  resolveChildFor,
+  resolveChildFor
 } from "./template_for_resolve";
 
 export const inRegex = /^(.*) in (.*)/;
@@ -17,7 +17,7 @@ export function getStateData(
 ): any {
   const propChain = capGroupTwo.split(".");
   let curr = state;
-  propChain.forEach((prop) => {
+  propChain.forEach(prop => {
     curr = curr[prop];
   });
   return curr;
@@ -41,7 +41,7 @@ export function resolveFor(
   const render = () => {
     const lookup = {
       ...state,
-      ...scopeVars,
+      ...scopeVars
     };
     if (!inRegex.test(expr)) {
       referenceNode.innerHTML = getStateData(lookup, expr);
@@ -50,14 +50,14 @@ export function resolveFor(
       const [_, iterName, inArrayName] = inRegex.exec(expr);
       const referencedArray = lookup[inArrayName] as Array<any>;
       if (currLevelNodes) {
-        currLevelNodes.forEach((nodeInfo) => nodeInfo.node.remove());
+        currLevelNodes.forEach(nodeInfo => nodeInfo.node.remove());
       }
       currLevelNodes = getCurrLevelNodes({
         nodeArrayValMap,
         referencedArray,
         scopeVars,
         iterName,
-        referenceNode,
+        referenceNode
       });
       currLevelNodes.forEach(({ node, scope }) => {
         resolveChildFor({
@@ -65,12 +65,12 @@ export function resolveFor(
           scope,
           nodeToForChildren,
           valRenderCallbackMap,
-          state,
+          state
         });
       });
 
       const resolvedNodes = currLevelNodes.map(
-        (nodeData) => nodeData.node
+        nodeData => nodeData.node
       ) as Array<Element>;
       if (!initialRenderDone) {
         referenceNode.replaceWith(templateRoot);
@@ -90,7 +90,7 @@ export default class templateHelper {
   }
   resolveNNFors(currNode: Element = this.nnInstance.$el) {
     const forNodes = getNNForsOneLvl(currNode);
-    forNodes.forEach((node) => {
+    forNodes.forEach(node => {
       const expr = node.getAttribute("nn-for");
       const cb = resolveFor(this.nnInstance.state, expr, node);
       const baseStateReferenced = getBaseStateReference(expr);
@@ -106,7 +106,7 @@ export function replaceNodeWithNodeList(
   nodeList: Node[]
 ) {
   let prev: HTMLElement;
-  nodeList.forEach((newNode) => {
+  nodeList.forEach(newNode => {
     nodeToReplace.parentNode.insertBefore(
       newNode,
       prev ? prev.nextSibling : nodeToReplace.nextSibling

@@ -1,4 +1,4 @@
-import nn from "./construct";
+import nn from "./index";
 
 export interface constructArgs {
   el?: string;

@@ -1,4 +1,4 @@
-import nn from "../src/construct";
+import nn from "../src/index";
 test("computed depending on array: push", () => {
   const x = new nn({
     data: { ab: ["a", "b"], c: "d" },

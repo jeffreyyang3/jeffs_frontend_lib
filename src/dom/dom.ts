@@ -1,4 +1,4 @@
-import nn from "../construct";
+import nn from "../index";
 export default class domHelper {
   private readonly nnInstance;
   private readonly el;
@@ -20,26 +20,24 @@ export default class domHelper {
       const nnInstance = this.nnInstance;
       if (key in nnInstance.dependentNodes) {
         nnInstance.dependentNodes[key].forEach(
-          (node) => (node.innerHTML = nnInstance.state[key])
+          node => (node.innerHTML = nnInstance.state[key])
         );
       }
 
       if (key in nnInstance.modelBindings) {
         nnInstance.modelBindings[key].forEach(
-          (node) => (node.value = nnInstance.state[key])
+          node => (node.value = nnInstance.state[key])
         );
       }
       if (key in nnInstance.dynamicHTMLDependencies) {
-        Array.from(nnInstance.dynamicHTMLDependencies[key]).forEach((cb) =>
-          cb()
-        );
+        Array.from(nnInstance.dynamicHTMLDependencies[key]).forEach(cb => cb());
       }
     };
   }
   initReactiveNodes() {
     const nnInstance = this.nnInstance;
     const reactiveNodes = nnInstance.$el.querySelectorAll("*[nn-txt]");
-    reactiveNodes.forEach((node) => {
+    reactiveNodes.forEach(node => {
       const reactingTo = node.getAttribute("nn-txt");
       if (!nnInstance.dependentNodes[reactingTo])
         nnInstance.dependentNodes[reactingTo] = [node];
@@ -50,7 +48,7 @@ export default class domHelper {
     const modelNodes = this.nnInstance.$el.querySelectorAll(
       "*[nn-model]"
     ) as NodeListOf<HTMLInputElement>;
-    modelNodes.forEach((node) => {
+    modelNodes.forEach(node => {
       const bound2 = node.getAttribute("nn-model");
       if (!this.nnInstance.modelBindings[bound2])
         this.nnInstance.modelBindings[bound2] = [node];

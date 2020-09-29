@@ -1,5 +1,5 @@
 import { constructArgs } from "./typedefs";
-import nn from "./construct";
+import nn from "./index";
 
 export default class computedHelper {
   private readonly computedArgs;

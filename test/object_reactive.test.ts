@@ -1,4 +1,4 @@
-import nn from "../src/construct";
+import nn from "../src/index";
 test("top level object set reacts", () => {
   const x = new nn({
     data: {

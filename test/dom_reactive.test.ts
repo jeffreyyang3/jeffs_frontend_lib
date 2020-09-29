@@ -1,4 +1,4 @@
-import nn from "../src/construct";
+import nn from "../src/index";
 import { nnHTMLElement } from "../src/typedefs";
 beforeEach(() => {
   document.body.innerHTML = `<!DOCTYPE html>

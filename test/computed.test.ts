@@ -1,4 +1,4 @@
-import nn from "../src/construct";
+import nn from "../src/index";
 test("basic computed, depend only on data", () => {
   const x = new nn({
     data: { n1: 1, n2: 1 },

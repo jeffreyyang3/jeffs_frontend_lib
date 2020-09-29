@@ -1,4 +1,4 @@
-import nn from '../src/construct';
+import nn from '../src/index';
 test("basic watch data properties", () => {
     let old = '';
     const x = new nn({

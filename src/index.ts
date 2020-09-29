@@ -1,82 +1,109 @@
-import nn from "./construct";
-import { getDiff, getBaseState } from './game/helpers';
+import { constructArgs, nnHTMLElement } from "./typedefs";
+import computedHelper from "./computed";
+import domHelper from "./dom/dom";
+import watchHelper from "./watch";
+import { reactiveData } from "./data";
+import templateHelper from "./dom/template_for";
+export default class nn {
+  $el: nnHTMLElement;
+  dependentNodes: {
+    [key: string]: Array<Element>;
+  };
+  error: string;
+  data: constructArgs["data"];
+  state: constructArgs["data"];
+  public computedHelper;
+  public domHelper;
+  public watchHelper;
+  public templateHelper;
 
-console.time("start");
-const x = new nn({
-  el: "#app",
-  data: getBaseState(),
-  watch: {
-    currTyped: function() {
-      this.state.hasStarted = true;
-      const currWordObj = this.state.wordData[this.state.currWord];
-      const { word } = currWordObj;
-      if(!this.state.canAdvance && this.state.currTyped.length > word.length){
-        this.state.currTyped = this.state.currTyped.slice(0, -1);
-      }
-      const { wrong, typed } = getDiff(word, this.state.currTyped);
-      currWordObj.wrong = wrong;
-      this.setState(
-        ["wordData", this.state.currWord, "typed"],
-        typed
-      );
-      if (this.state.canAdvance) {
-        this.state.correctCharsTotal += this.state.currTyped.length;
+  computedFns: {
+    [key: string]: () => any;
+  };
+  dependencies: {
+    [key: string]: Set<string>;
+  };
+  modelBindings: {
+    [key: string]: Array<HTMLInputElement>;
+  };
+  dynamicHTMLDependencies: {
+    [key: string]: Set<Function>;
+  };
+  constructor({ el, data, computed, watch }: constructArgs) {
+    this.data = {};
+    this.state = {};
+    this.dependencies = {};
+    this.computedFns = {};
+    this.dependentNodes = {};
+    this.modelBindings = {};
+    this.dynamicHTMLDependencies = {};
+    if (el) {
+      this.domHelper = new domHelper({
+        nnInstance: this,
+        el,
+      });
+      this.domHelper.attach();
+      this.domHelper.initReactiveNodes();
+    }
+    if (data) this.initData(data);
+    if (computed) {
+      this.computedHelper = new computedHelper({
+        computedArgs: computed,
+        nnInstance: this,
+        nnDependencies: this.dependencies,
+        computedFns: this.computedFns,
+      });
+    }
+    if (watch) {
+      this.watchHelper = new watchHelper({
+        watchArgs: watch,
+        nnInstance: this,
+      });
+    }
+    if (el) {
+      this.domHelper.initModelNodes();
+      this.templateHelper = new templateHelper({
+        nnInstance: this,
+      });
+      this.templateHelper.resolveNNFors();
+    }
+  }
 
-        if (this.state.currWord === this.state.wordData.length - 1) {
-          this.state.hasStarted = false;
-        } else {
-          this.state.currWord++;
-          this.state.currTyped = "";
-        }
-      }
-    },
-  },
-  computed: {
-    currTimeDisplay: {
-      fn() {
-        const minutes = Math.floor(this.state.secondsSinceStart / 60);
-        const seconds = this.state.secondsSinceStart % 60;
-        const minString = minutes >= 10 ? `${minutes}` : `0${minutes}`;
-        const secString = seconds >= 10 ? `${seconds}` : `0${seconds}`;
-        return `${minString}:${secString}`;
-      },
-      dependencies: ["secondsSinceStart"],
-    },
-    startTxt: {
-      fn() {
-        return this.state.hasStarted ? "" : "Start typing to begin.";
-      },
-      dependencies: ["hasStarted"],
-    },
-    canAdvance: {
-      fn() {
-        return (
-          this.state.wordData[this.state.currWord].word ===
-          this.state.currTyped.trim()
-        );
-      },
-      dependencies: ["currWord", "currTyped", "wordData"],
-    },
-    wpm: {
-      fn() {
-        const wpm =
-          this.state.correctCharsTotal /
-          5 /
-          (this.state.secondsSinceStart / 60);
-        return isNaN(wpm) ? 0 : wpm.toFixed();
-      },
-      dependencies: ["correctCharsTotal", "secondsSinceStart"],
-    },
-  },
-});
-console.timeEnd("start");
-setInterval(() => {
-  if (x.state.hasStarted) x.state.secondsSinceStart += 0.5;
-}, 500);
-document.getElementById('reset').addEventListener(('click'), () => {
-  const base = getBaseState();
-  Object.keys(base).forEach(key => x.state[key] = base[key])
-});
+  initData(data: constructArgs["data"]) {
+    Object.keys(data).forEach((key) => {
+      this.makeReactiveData(key, data[key]);
+    });
+  }
 
-//@ts-ignore
-window.x = x;
+  getDataChangedCallback(key: string) {
+    return () => {
+      if (this.computedHelper)
+        this.computedHelper.getUpdateComputedCallback(key)();
+      if (this.domHelper) this.domHelper.getDomUpdateCallback(key)();
+      if (this.watchHelper) this.watchHelper.getRunWatchCallback(key)();
+    };
+  }
+
+  setState(propChain: Array<string | number>, value: any) {
+    let curr: any = this.state;
+    const stateKey = propChain[0];
+    for (let i = 0; i < propChain.length - 1; i++) {
+      curr = curr[propChain[i]];
+    }
+    curr[propChain[propChain.length - 1]] = value;
+    this.state[stateKey] = this.state[stateKey];
+  }
+
+  makeReactiveData(key: string, value: any) {
+    const rData = new reactiveData({
+      initialData: value,
+      dataChangedCallback: this.getDataChangedCallback(key),
+    });
+    Object.defineProperty(this.state, key, {
+      enumerable: true,
+      get: () => rData.getData(),
+      set: (val) => rData.setData(val),
+    });
+    rData.setData(value);
+  }
+}
