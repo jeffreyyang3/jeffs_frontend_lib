@@ -40,7 +40,7 @@ export default class nn {
     if (el) {
       this.domHelper = new domHelper({
         nnInstance: this,
-        el,
+        el
       });
       this.domHelper.attach();
       this.domHelper.initReactiveNodes();
@@ -51,36 +51,36 @@ export default class nn {
         computedArgs: computed,
         nnInstance: this,
         nnDependencies: this.dependencies,
-        computedFns: this.computedFns,
+        computedFns: this.computedFns
       });
     }
     if (watch) {
       this.watchHelper = new watchHelper({
         watchArgs: watch,
-        nnInstance: this,
+        nnInstance: this
       });
     }
     if (el) {
       this.domHelper.initModelNodes();
       this.templateHelper = new templateHelper({
-        nnInstance: this,
+        nnInstance: this
       });
       this.templateHelper.resolveNNFors();
     }
   }
 
   initData(data: constructArgs["data"]) {
-    Object.keys(data).forEach((key) => {
+    Object.keys(data).forEach(key => {
       this.makeReactiveData(key, data[key]);
     });
   }
 
   getDataChangedCallback(key: string) {
-    return () => {
+    return (prevVal?: any) => {
       if (this.computedHelper)
         this.computedHelper.getUpdateComputedCallback(key)();
       if (this.domHelper) this.domHelper.getDomUpdateCallback(key)();
-      if (this.watchHelper) this.watchHelper.getRunWatchCallback(key)();
+      if (this.watchHelper) this.watchHelper.getRunWatchCallback(key)(prevVal);
     };
   }
 
@@ -97,12 +97,12 @@ export default class nn {
   makeReactiveData(key: string, value: any) {
     const rData = new reactiveData({
       initialData: value,
-      dataChangedCallback: this.getDataChangedCallback(key),
+      dataChangedCallback: this.getDataChangedCallback(key)
     });
     Object.defineProperty(this.state, key, {
       enumerable: true,
       get: () => rData.getData(),
-      set: (val) => rData.setData(val),
+      set: val => rData.setData(val)
     });
     rData.setData(value);
   }

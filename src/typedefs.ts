@@ -9,7 +9,7 @@ export interface constructArgs {
     [key: string]: { fn: () => any; dependencies: Array<string> };
   };
   watch?: {
-    [key: string]: () => any;
+    [key: string]: (prevVal?: any) => void;
   };
 }
 

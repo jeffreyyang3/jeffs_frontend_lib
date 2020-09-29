@@ -6,10 +6,10 @@ export class reactiveData {
   private dataChangedCallback;
   constructor({
     initialData,
-    dataChangedCallback,
+    dataChangedCallback
   }: {
     initialData: any;
-    dataChangedCallback: () => void;
+    dataChangedCallback: (prevVal?: any) => void;
   }) {
     this.dataChangedCallback = dataChangedCallback;
     this.data = initialData;
@@ -21,9 +21,9 @@ export class reactiveData {
     const dcCallbackClosure = this.dataChangedCallback;
     Object.defineProperty(this.data, "__nn__wrapped", {
       enumerable: false,
-      value: true,
+      value: true
     });
-    ["sort", "pop", "push", "shift", "unshift"].forEach((pMethodName) => {
+    ["sort", "pop", "push", "shift", "unshift"].forEach(pMethodName => {
       //@ts-ignore
       const originalMethod = Array.prototype[pMethodName];
       Object.defineProperty(this.data, pMethodName, {
@@ -34,23 +34,24 @@ export class reactiveData {
           const result = originalMethod.apply(this, args);
           dcCallbackClosure();
           return result;
-        },
+        }
       });
     });
   }
   wrapObjectProps() {
     Object.defineProperty(this.data, "__nn__wrapped", {
       enumerable: false,
-      value: true,
+      value: true
     });
-    Object.keys(this.data).forEach((key) => {
+    Object.keys(this.data).forEach(key => {
       let valClosure = this.data[key];
       Object.defineProperty(this.data, key, {
         get: () => valClosure,
-        set: (val) => {
+        set: val => {
+          const prev = valClosure;
           valClosure = val;
-          this.dataChangedCallback();
-        },
+          this.dataChangedCallback(valClosure);
+        }
       });
     });
   }
@@ -67,6 +68,6 @@ export class reactiveData {
       }
       this.wrapArrayMethods();
     } else if (isObject(value)) this.wrapObjectProps();
-    if (this.dataChangedCallback) this.dataChangedCallback();
+    if (this.dataChangedCallback) this.dataChangedCallback(prev);
   }
 }
