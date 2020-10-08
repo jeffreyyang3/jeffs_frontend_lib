@@ -1,6 +1,6 @@
 {
-"name": "jeffs_frontend_lib",
-  "version": "1.0.7",
+  "name": "jeffs_frontend_lib",
+  "version": "1.0.9",
   "types": "dist/src/construct.d.ts",
   "description": "",
   "main": "dist/src/construct.js",
